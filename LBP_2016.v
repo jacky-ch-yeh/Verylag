@@ -19,134 +19,155 @@ reg lbp_valid;
 reg [7:0] lbp_data;
 reg finish;
 
-reg [7:0] data[8:0];
-reg [3:0] count;
-reg [6:0] row, col; //for 3x3  
-reg [7:0] LBP_reg;  //LBP operation result
-
-reg [1:0] cur_state, next_state;
-localparam LOAD = 0;
-localparam LBP_OPERATION = 1;
-localparam WRITE = 2;
+reg [3:0] state;
+reg signed [8:0] data_buf [8:0];
+reg signed [7:0] row, col;  
+reg signed [2:0] dr, dc; // offset for row and col
+reg [3:0] i; // index for data_buf[]
+wire [13:0] addr;
+assign addr = ((row + dr) <<< 7) + (col + dc);
 
 always @(posedge clk or posedge reset) begin
-  if(reset)
-    cur_state <= LOAD;
-  else
-    cur_state <= next_state;
-end
-
-always @(*) begin
-  case(cur_state)
-    LOAD: begin
-      if(count == 4'd9) 
-        next_state <= LBP_OPERATION;
-      else
-        next_state <= LOAD;
-    end
-    LBP_OPERATION: begin
-      if(count == 4'd9)
-        next_state <= WRITE;
-      else
-        next_state <= LBP_OPERATION;
-    end
-    default: begin  //WRITE
-      if(count == 4'd1)
-        next_state <= LOAD;
-      else
-        next_state <= WRITE;
-    end
-  endcase
-end
-
-always @(posedge clk or posedge reset) 
-begin
   if(reset) begin
+    gray_addr <= 14'd0;
     gray_req <= 1'd0;
-    finish <= 1'd0;
-    row <= 7'd0;
-    col <= 7'd0;
-    count <= 4'd0;
-    lbp_data <= 8'd0;
-    lbp_valid <= 1'd0;
     lbp_addr <= 14'd0;
-    LBP_reg <= 8'd0;
+    lbp_valid <= 1'd0;
+    lbp_data <= 8'd0;
+    finish <= 1'd0;
+    /*****************/
+    state <= 0;
+    row <= 7'd1;
+    col <= 7'd1;
+    dr <= -1;
+    dc <= -1;
+    i <= 0;
   end
-  else 
-  begin
-    case(cur_state)
-      LOAD: 
-      begin
-          if(gray_ready == 1'd1) 
-          begin
-            if(count == 4'd0) begin
-              count <= 4'd1;
-              gray_addr <= ({7'd0,row} << 7) + {7'd0,col} + {10'd0,count};
-              gray_req <= 1'd1;
-            end
-            else if(count >= 4'd1 && count <= 4'd2) begin 
-              count <= count + 4'd1;
-              gray_addr <= gray_addr + 14'd1;
-              data[count-1] <= gray_data;
-            end
-            else if(count >= 4'd3 && count <= 4'd5) begin
-              count <= count + 4'd1;
-              gray_addr <= ({7'd0,row} << 7) + {7'd0,col} + {10'd0,count - 3} + 14'd128;
-              data[count-1] <= gray_data;
-            end
-            else if(count >= 4'd6 && count <= 4'd8) begin
-              count <= count + 4'd1;
-              gray_addr <= ({7'd0,row} << 7) + {7'd0,col} + {10'd0,count - 6} + 14'd256;
-              data[count-1] <= gray_data;
-            end
-            else begin  //count == 9
-              count <= 4'd0;
-              data[count-1] <= gray_data;
-              gray_req <= 1'd0;
-            end
-          end
-          else begin end
-      end
-      LBP_OPERATION: begin
-        if(count == 4'd9) begin
-          count <= 4'd0;
-        end
-        else if(count == 4'd4) begin
-          count <= count + 4'd1;
+  else begin
+    case (state)
+      0: begin
+        if(gray_ready) begin
+          gray_req <= 1;
+          gray_addr <= addr;
+          dc <= dc + 1;
+          state <= 1;
         end
         else begin
-          count <= count + 4'd1;
-          if(count <= 3)
-            LBP_reg <= LBP_reg + ((data[count] >= data[4]) ? (9'd1 << count) : 0);
-          else
-            LBP_reg <= LBP_reg + ((data[count] >= data[4]) ? (9'd1 << (count - 1)) : 0);
+          state <= 0;
+        end 
+      end
+      1: begin
+        data_buf[i] <= gray_data;
+        i <= i + 1;
+        gray_addr <= addr;
+        if(dr == 1 && dc == 1) begin
+          dr <= 0;
+          dc <= 0;
+          i <= 0;
+          state <= 2;
+        end
+        else begin
+          if(dc == 1) begin
+            dc <= -1;
+            dr <= dr + 1;
+          end
+          else begin
+            dc <= dc + 1;
+          end
+          state <= 1;
+        end
+      end
+      2: begin
+        gray_req <= 0;
+        /* LBP operation */
+        if(data_buf[i] > data_buf[4]) begin
+          case (i)
+            0: lbp_data <= lbp_data + 1;
+            1: lbp_data <= lbp_data + 2;
+            2: lbp_data <= lbp_data + 4;
+            3: lbp_data <= lbp_data + 8;
+            5: lbp_data <= lbp_data + 16;
+            6: lbp_data <= lbp_data + 32;
+            7: lbp_data <= lbp_data + 64;
+            8: lbp_data <= lbp_data + 128;
+            default: 
+          endcase
+        end
+        else begin
+          lbp_data <= lbp_data;
+        end
+
+        if(i == 3) begin
+          i <= 5;
+        end
+        else begin
+          i <= i + 1;
+        end
+
+        if(i == 8) begin
+          i <= 2; 
+          lbp_valid <= 1;
+          lbp_addr <= addr;
+          state <= 3;
+        end
+        else begin
+          state <= 2;
+        end
+      end
+      3: begin
+        lbp_valid <= 0;
+        lbp_data <= 8'd0;
+        if(row == 126 && col == 126) begin
+          finish <= 1;
+        end
+        else begin
+          if(col == 126) begin
+            col <= 1;
+            row <= row + 1;
+            dr <= -1;
+            dc <= -1;
+            state <= 0;
+          end
+          else begin
+            col <= col + 1;
+            /* only need to update data_buf[2, 5, 8] */
+            dr <= -1;
+            dc <= 1;
+            data_buf[0] <= data_buf[1];
+            data_buf[3] <= data_buf[4];
+            data_buf[6] <= data_buf[7];
+            data_buf[1] <= data_buf[2];
+            data_buf[4] <= data_buf[5];
+            data_buf[7] <= data_buf[8];
+            state <= 4;
+          end
+        end
+      end
+      4: begin
+        gray_req <= 1;
+        gray_addr <= addr;
+        dr <= dr + 1;
+        state <= 5;
+      end 
+      5: begin
+        gray_addr <= addr;
+        data_buf[i] <= gray_data;
+        i <= i + 3;
+        if(dr == 1) begin
+          dr <= 0;
+          dc <= 0;
+          state <= 2;
+        end
+        else begin
+          dr <= dr + 1;
+          state <= 5;
         end
       end
       default: begin
-        if(count == 4'd1) begin
-          lbp_valid <= 1'd0;
-          count <= 4'd0;
-        end
-        else begin
-          count <= count + 4'd1;
-          lbp_valid <= 1'd1;
-          lbp_addr <= ({7'd0,row} << 7) + {7'd0,col} + 14'd129;
-          lbp_data <= LBP_reg;
-          LBP_reg <= 8'd0;
-          if(row == 7'd125 && col == 7'd125) begin
-            finish <= 1'd1;
-          end
-          else if(col == 7'd125) begin
-            col <= 7'd0;
-            row <= row + 7'd1;
-          end
-          else begin
-            col <= col + 7'd1;
-          end
-        end
-      end
+        
+      end 
     endcase
-  end  
+  end
 end
 
 //====================================================================
