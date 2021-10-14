@@ -27,6 +27,8 @@ reg [3:0] i; // index for data_buf[]
 wire [13:0] addr;
 assign addr = ((row + dr) <<< 7) + (col + dc);
 
+reg sig0, sig1, sig2, sig3, sig5, sig6, sig7, sig8; 
+
 always @(posedge clk or posedge reset) begin
   if(reset) begin
     gray_addr <= 14'd0;
@@ -79,47 +81,23 @@ always @(posedge clk or posedge reset) begin
       end
       2: begin
         gray_req <= 0;
-        if(i == 0)
-          data_buf[8] <= gray_data;
-        else
-          data_buf[8] <= data_buf[8];
+        data_buf[8] <= gray_data;
+        i <= 2; 
+        state <= 3;
         /* LBP operation */
-        if(data_buf[i] >= data_buf[4]) begin
-          case (i)
-            0: lbp_data <= lbp_data + 1;
-            1: lbp_data <= lbp_data + 2;
-            2: lbp_data <= lbp_data + 4;
-            3: lbp_data <= lbp_data + 8;
-            5: lbp_data <= lbp_data + 16;
-            6: lbp_data <= lbp_data + 32;
-            7: lbp_data <= lbp_data + 64;
-            8: lbp_data <= lbp_data + 128;
-            default: lbp_data <= lbp_data;
-          endcase
-        end
-        else begin
-          lbp_data <= lbp_data;
-        end
-
-        if(i == 8) begin
-          i <= 2; 
-          lbp_valid <= 1;
-          lbp_addr <= addr;
-          state <= 3;
-        end
-        else begin
-          state <= 2;
-          if(i == 3) begin
-            i <= 5;
-          end
-          else begin
-            i <= i + 1;
-          end
-        end
+        sig0 <= (data_buf[0] >= data_buf[4]) ? 1 : 0;
+        sig1 <= (data_buf[1] >= data_buf[4]) ? 1 : 0;
+        sig2 <= (data_buf[2] >= data_buf[4]) ? 1 : 0;
+        sig3 <= (data_buf[3] >= data_buf[4]) ? 1 : 0;
+        sig5 <= (data_buf[5] >= data_buf[4]) ? 1 : 0;
+        sig6 <= (data_buf[6] >= data_buf[4]) ? 1 : 0;
+        sig7 <= (data_buf[7] >= data_buf[4]) ? 1 : 0;
+        sig8 <= (gray_data >= data_buf[4]) ? 1 : 0;
       end
       3: begin
-        lbp_valid <= 0;
-        lbp_data <= 8'd0;
+        lbp_valid <= 1;
+        lbp_addr <= addr;
+        lbp_data <= 1 * sig0 + 2 * sig1 + 4 * sig2 + 8 * sig3 + 16 * sig5 + 32 * sig6 + 64 * sig7 + 128 * sig8;
         /* update row and col*/
         if(row == 126 && col == 126) begin
           finish <= 1;
