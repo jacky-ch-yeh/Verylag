@@ -79,8 +79,12 @@ always @(posedge clk or posedge reset) begin
       end
       2: begin
         gray_req <= 0;
+        if(i == 0)
+          data_buf[8] <= gray_data;
+        else
+          data_buf[8] <= data_buf[8];
         /* LBP operation */
-        if(data_buf[i] > data_buf[4]) begin
+        if(data_buf[i] >= data_buf[4]) begin
           case (i)
             0: lbp_data <= lbp_data + 1;
             1: lbp_data <= lbp_data + 2;
@@ -90,18 +94,11 @@ always @(posedge clk or posedge reset) begin
             6: lbp_data <= lbp_data + 32;
             7: lbp_data <= lbp_data + 64;
             8: lbp_data <= lbp_data + 128;
-            default: 
+            default: lbp_data <= lbp_data;
           endcase
         end
         else begin
           lbp_data <= lbp_data;
-        end
-
-        if(i == 3) begin
-          i <= 5;
-        end
-        else begin
-          i <= i + 1;
         end
 
         if(i == 8) begin
@@ -112,20 +109,29 @@ always @(posedge clk or posedge reset) begin
         end
         else begin
           state <= 2;
+          if(i == 3) begin
+            i <= 5;
+          end
+          else begin
+            i <= i + 1;
+          end
         end
       end
       3: begin
         lbp_valid <= 0;
         lbp_data <= 8'd0;
+        /* update row and col*/
         if(row == 126 && col == 126) begin
           finish <= 1;
         end
         else begin
+          /* at the boundary, request 9 pixels is needed */
           if(col == 126) begin
             col <= 1;
             row <= row + 1;
             dr <= -1;
             dc <= -1;
+            i <= 0;
             state <= 0;
           end
           else begin
@@ -133,12 +139,6 @@ always @(posedge clk or posedge reset) begin
             /* only need to update data_buf[2, 5, 8] */
             dr <= -1;
             dc <= 1;
-            data_buf[0] <= data_buf[1];
-            data_buf[3] <= data_buf[4];
-            data_buf[6] <= data_buf[7];
-            data_buf[1] <= data_buf[2];
-            data_buf[4] <= data_buf[5];
-            data_buf[7] <= data_buf[8];
             state <= 4;
           end
         end
@@ -147,24 +147,28 @@ always @(posedge clk or posedge reset) begin
         gray_req <= 1;
         gray_addr <= addr;
         dr <= dr + 1;
+        data_buf[0] <= data_buf[1];
+        data_buf[3] <= data_buf[4];
+        data_buf[6] <= data_buf[7];
+        data_buf[1] <= data_buf[2];
+        data_buf[4] <= data_buf[5];
+        data_buf[7] <= data_buf[8];
         state <= 5;
       end 
-      5: begin
+      default: begin
         gray_addr <= addr;
         data_buf[i] <= gray_data;
         i <= i + 3;
         if(dr == 1) begin
           dr <= 0;
           dc <= 0;
+          i <= 0;
           state <= 2;
         end
         else begin
           dr <= dr + 1;
           state <= 5;
         end
-      end
-      default: begin
-        
       end 
     endcase
   end
