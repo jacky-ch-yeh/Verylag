@@ -13,9 +13,10 @@ output reg busy;
 output reg done;
 
 reg [7:0] data_buf[63:0];
-reg [2:0] row, col;
-reg [5:0] one_degree_pos;
-reg [6:0] pixel_counter;
+reg [2:0] x, y;
+wire [5:0] one_dim_pos;
+reg [9:0] comp_reg; // for buffering in MIN & MAX and calculating the sum in AVERAGE
+reg canstore; 
 
 reg [1:0] cur_state, next_state;
 localparam PROCESS = 0;
@@ -30,11 +31,16 @@ localparam SHIFT_LEFT = 3;
 localparam SHIFT_RIGHT = 4;
 localparam MAX = 5;
 localparam MIN = 6;
+localparam COMP2 = 12;
+localparam COMP3 = 13;
+localparam ASSIGN = 14;
 localparam AVERAGE = 7;
 localparam CTR_CLKWISE_ROT = 8;
 localparam CLKWISE_ROT = 9;
 localparam MIRROR_X = 10;
 localparam MIRROR_Y = 11;
+
+assign one_dim_pos = (y <<< 3) + x - 6'd9; // at the top left of the operation point
 
 always @(posedge clk or posedge reset) 
 begin
@@ -44,232 +50,197 @@ begin
         cur_state <= next_state;
 end
 
-always @(*) 
-begin
-    case (cur_state)
-        WAIT_CMD: begin
-            if(cmd_valid)
+always @(*) begin
+    case(cur_state)
+        LOAD_DATA: begin
+            if(IROM_A == 6'd63)
                 next_state <= PROCESS;
             else
-                next_state <= WAIT_CMD; 
+                next_state <= LOAD_DATA;
         end
-        PROCESS: begin
-            if(pixel_counter == 7'd65 && cmd_reg != WRITE) 
-                next_state <= WAIT_CMD;
-            else
-                next_state <= PROCESS;    
+        default: begin // PROCESS
+            next_state <= PROCESS;
         end
-        default: begin  //LOAD_DATA
-            if(pixel_counter == 7'd64) 
-                next_state <= WAIT_CMD;
-            else
-                next_state <= LOAD_DATA;          
-        end 
     endcase
 end
 
-always @(negedge clk or posedge reset) 
+always @(posedge clk or posedge reset)
 begin
-    if(reset) begin
-        row <= 4'd4;
-        col <= 4'd4;
+    if(reset) 
+    begin
+        IROM_rd <= 1'd1;
+        IROM_A <= 6'd0;
+        IRAM_valid <= 1'd0;
+        IRAM_D <= 8'd0;
+        IRAM_A <= 6'd0;
+        busy <= 1'd1;
+        done <= 1'd0;
+        x <= 4;
+        y <= 4;
+        canstore <= 0;
     end
     else 
     begin
-        if(cur_state == PROCESS) 
-        begin
-            case(cmd_reg)
-                WRITE: begin
+        case(cur_state)
+            LOAD_DATA: begin
+                if(IROM_A == 6'd63) begin
+                    IROM_rd <= 0;
+                    busy <= 0;
                 end
-                SHIFT_UP: begin
-                    if(row <= 4'd1)
-                        row <= row;
-                    else
-                        row <= row - 4'd1; 
+                else begin
+                    IROM_rd <= 1;
+                    busy <= 1;
                 end
-                SHIFT_DOWN: begin
-                    if(row >= 4'd7)
-                        row <= row;
-                    else
-                        row <= row + 4'd1;  
+                if(canstore) begin
+                    data_buf[IROM_A] <= IROM_Q;
+                    IROM_A <= IROM_A + 1;
                 end
-                SHIFT_LEFT: begin
-                    if(col <= 4'd1)
-                        col <= col;
-                    else
-                        col <= col - 4'd1; 
+                else begin
+                    canstore <= 1;
                 end
-                SHIFT_RIGHT: begin
-                    if(col >= 4'd7)
-                        col <= col;
-                    else
-                        col <= col + 4'd1; 
+            end
+            default: begin // PROCESS
+                if(cmd_valid) begin
+                    cmd_reg <= cmd;
+                    busy <= 1;
+                    comp_reg <= data_buf[one_dim_pos];
+                    canstore <= 0;
                 end
-                MAX: begin
-                    if(data_buf[one_degree_pos] >= data_buf[one_degree_pos+1] && data_buf[one_degree_pos] >= data_buf[one_degree_pos+8] && data_buf[one_degree_pos] >= data_buf[one_degree_pos+9]) begin
-                        data_buf[one_degree_pos+1] <= data_buf[one_degree_pos];
-                        data_buf[one_degree_pos+8] <= data_buf[one_degree_pos];
-                        data_buf[one_degree_pos+9] <= data_buf[one_degree_pos];
-                    end
-                    else if(data_buf[one_degree_pos+1] >= data_buf[one_degree_pos] && data_buf[one_degree_pos+1] >= data_buf[one_degree_pos+8] && data_buf[one_degree_pos+1] >= data_buf[one_degree_pos+9]) begin
-                        data_buf[one_degree_pos] <= data_buf[one_degree_pos+1];
-                        data_buf[one_degree_pos+8] <= data_buf[one_degree_pos+1];
-                        data_buf[one_degree_pos+9] <= data_buf[one_degree_pos+1]; 
-                    end
-                    else if(data_buf[one_degree_pos+8] >= data_buf[one_degree_pos] && data_buf[one_degree_pos+8] >= data_buf[one_degree_pos+1] && data_buf[one_degree_pos+8] >= data_buf[one_degree_pos+9]) begin
-                        data_buf[one_degree_pos] <= data_buf[one_degree_pos+8];
-                        data_buf[one_degree_pos+1] <= data_buf[one_degree_pos+8];
-                        data_buf[one_degree_pos+9] <= data_buf[one_degree_pos+8]; 
-                    end 
-                    else begin
-                        data_buf[one_degree_pos] <= data_buf[one_degree_pos+9];
-                        data_buf[one_degree_pos+1] <= data_buf[one_degree_pos+9];
-                        data_buf[one_degree_pos+8] <= data_buf[one_degree_pos+9]; 
-                    end
+                else
+                begin
+                    case (cmd_reg)
+                        WRITE: begin
+                            if(IRAM_A == 6'd63) begin
+                                busy <= 0;
+                                IRAM_valid <= 0;
+                                done <= 1;
+                            end
+                            else begin
+                                IRAM_valid <= 1;
+                                canstore <= 1;
+                                if(canstore) begin
+                                    IRAM_A <= IRAM_A + 1;
+                                    IRAM_D <= data_buf[IRAM_A + 1];
+                                end
+                                else begin
+                                    IRAM_A <= 0;
+                                    IRAM_D <= data_buf[0];
+                                end
+                            end
+                        end 
+                        SHIFT_UP: begin
+                            busy <= 0;
+                            if(y == 1)
+                                y <= 1;
+                            else
+                                y <= y - 1;
+                        end
+                        SHIFT_DOWN: begin
+                            busy <= 0;
+                            if(y == 7)
+                                y <= 7;
+                            else
+                                y <= y + 1;
+                        end
+                        SHIFT_LEFT: begin
+                            busy <= 0;
+                            if(x == 1)
+                                x <= 1;
+                            else
+                                x <= x - 1;
+                        end
+                        SHIFT_RIGHT: begin
+                            busy <= 0;
+                            if(x == 7)
+                                x <= 7;
+                            else
+                                x <= x + 1;
+                        end     
+                        AVERAGE: begin
+                        if(canstore) begin
+                                busy <= 0;
+                                data_buf[one_dim_pos] <= comp_reg;
+                                data_buf[one_dim_pos + 1] <= comp_reg;
+                                data_buf[one_dim_pos + 8] <= comp_reg;
+                                data_buf[one_dim_pos + 9] <= comp_reg;
+                        end 
+                        else begin
+                            comp_reg <= (data_buf[one_dim_pos] + data_buf[one_dim_pos + 1] + data_buf[one_dim_pos + 8] + data_buf[one_dim_pos + 9]) >>> 2;
+                            canstore <= 1;
+                        end
+                        end
+                        CTR_CLKWISE_ROT: begin
+                            busy <= 0;
+                            data_buf[one_dim_pos] <= data_buf[one_dim_pos + 1];
+                            data_buf[one_dim_pos + 1] <= data_buf[one_dim_pos + 9];
+                            data_buf[one_dim_pos + 9] <= data_buf[one_dim_pos + 8];
+                            data_buf[one_dim_pos + 8] <= data_buf[one_dim_pos];
+                        end
+                        CLKWISE_ROT: begin
+                            busy <= 0;
+                            data_buf[one_dim_pos] <= data_buf[one_dim_pos + 8];
+                            data_buf[one_dim_pos + 1] <= data_buf[one_dim_pos];
+                            data_buf[one_dim_pos + 9] <= data_buf[one_dim_pos + 1];
+                            data_buf[one_dim_pos + 8] <= data_buf[one_dim_pos + 9];
+                        end
+                        MIRROR_X: begin
+                            busy <= 0;
+                            data_buf[one_dim_pos] <= data_buf[one_dim_pos + 8];
+                            data_buf[one_dim_pos + 1] <= data_buf[one_dim_pos + 9];
+                            data_buf[one_dim_pos + 9] <= data_buf[one_dim_pos + 1];
+                            data_buf[one_dim_pos + 8] <= data_buf[one_dim_pos];
+                        end
+                        MIRROR_Y: begin
+                            busy <= 0;
+                            data_buf[one_dim_pos] <= data_buf[one_dim_pos + 1];
+                            data_buf[one_dim_pos + 1] <= data_buf[one_dim_pos];
+                            data_buf[one_dim_pos + 9] <= data_buf[one_dim_pos + 8];
+                            data_buf[one_dim_pos + 8] <= data_buf[one_dim_pos + 9];
+                        end
+                        // MAX: begin
+                        //     /* combined in default */
+                        // end
+                        COMP2: begin
+                            cmd_reg <= COMP3;
+                            if(canstore) begin // MAX
+                                comp_reg <= (comp_reg > data_buf[one_dim_pos + 8]) ? comp_reg : data_buf[one_dim_pos + 8];
+                            end
+                            else begin // MIN
+                                comp_reg <= (comp_reg < data_buf[one_dim_pos + 8]) ? comp_reg : data_buf[one_dim_pos + 8];
+                            end
+                        end
+                        COMP3: begin
+                            cmd_reg <= ASSIGN;
+                            if(canstore) begin // MAX
+                                comp_reg <= (comp_reg > data_buf[one_dim_pos + 9]) ? comp_reg : data_buf[one_dim_pos + 9];
+                            end
+                            else begin // MIN
+                                comp_reg <= (comp_reg < data_buf[one_dim_pos + 9]) ? comp_reg : data_buf[one_dim_pos + 9];
+                            end
+                        end
+                        ASSIGN: begin
+                            data_buf[one_dim_pos] <= comp_reg;
+                            data_buf[one_dim_pos + 1] <= comp_reg;
+                            data_buf[one_dim_pos + 8] <= comp_reg;
+                            data_buf[one_dim_pos + 9] <= comp_reg;
+                            busy <= 0;
+                        end
+                        default: begin // MAX and MIN (COMP1)
+                            cmd_reg <= COMP2;
+                            if(cmd_reg == MAX) begin // MAX
+                                comp_reg <= (comp_reg > data_buf[one_dim_pos + 1]) ? comp_reg : data_buf[one_dim_pos + 1];
+                                canstore <= 1;
+                            end
+                            else begin // MIN
+                                comp_reg <= (comp_reg < data_buf[one_dim_pos + 1]) ? comp_reg : data_buf[one_dim_pos + 1];
+                                canstore <= 0;
+                            end
+                        end
+                    endcase
                 end
-                MIN: begin
-                    if(data_buf[one_degree_pos] <= data_buf[one_degree_pos+1] && data_buf[one_degree_pos] <= data_buf[one_degree_pos+8] && data_buf[one_degree_pos] <= data_buf[one_degree_pos+9]) begin
-                        data_buf[one_degree_pos+1] <= data_buf[one_degree_pos];
-                        data_buf[one_degree_pos+8] <= data_buf[one_degree_pos];
-                        data_buf[one_degree_pos+9] <= data_buf[one_degree_pos];
-                    end
-                    else if(data_buf[one_degree_pos+1] <= data_buf[one_degree_pos] && data_buf[one_degree_pos+1] <= data_buf[one_degree_pos+8] && data_buf[one_degree_pos+1] <= data_buf[one_degree_pos+9]) begin
-                        data_buf[one_degree_pos] <= data_buf[one_degree_pos+1];
-                        data_buf[one_degree_pos+8] <= data_buf[one_degree_pos+1];
-                        data_buf[one_degree_pos+9] <= data_buf[one_degree_pos+1]; 
-                    end
-                    else if(data_buf[one_degree_pos+8] <= data_buf[one_degree_pos] && data_buf[one_degree_pos+8] <= data_buf[one_degree_pos+1] && data_buf[one_degree_pos+8] <= data_buf[one_degree_pos+9]) begin
-                        data_buf[one_degree_pos] <= data_buf[one_degree_pos+8];
-                        data_buf[one_degree_pos+1] <= data_buf[one_degree_pos+8];
-                        data_buf[one_degree_pos+9] <= data_buf[one_degree_pos+8]; 
-                    end 
-                    else begin
-                        data_buf[one_degree_pos] <= data_buf[one_degree_pos+9];
-                        data_buf[one_degree_pos+1] <= data_buf[one_degree_pos+9];
-                        data_buf[one_degree_pos+8] <= data_buf[one_degree_pos+9]; 
-                    end 
-                end
-                AVERAGE: begin
-                    data_buf[one_degree_pos] <= (({2'd0,data_buf[one_degree_pos]} + {2'd0,data_buf[one_degree_pos+1]} + {2'd0,data_buf[one_degree_pos+8]} + {2'd0,data_buf[one_degree_pos+9]})) >> 2;
-                    data_buf[one_degree_pos+1] <= (({2'd0,data_buf[one_degree_pos]} + {2'd0,data_buf[one_degree_pos+1]} + {2'd0,data_buf[one_degree_pos+8]} + {2'd0,data_buf[one_degree_pos+9]})) >> 2;
-                    data_buf[one_degree_pos+8] <= (({2'd0,data_buf[one_degree_pos]} + {2'd0,data_buf[one_degree_pos+1]} + {2'd0,data_buf[one_degree_pos+8]} + {2'd0,data_buf[one_degree_pos+9]})) >> 2;
-                    data_buf[one_degree_pos+9] <= (({2'd0,data_buf[one_degree_pos]} + {2'd0,data_buf[one_degree_pos+1]} + {2'd0,data_buf[one_degree_pos+8]} + {2'd0,data_buf[one_degree_pos+9]})) >> 2;
-                end
-                CTR_CLKWISE_ROT: begin
-                    data_buf[one_degree_pos] <= data_buf[one_degree_pos+1];
-                    data_buf[one_degree_pos+1] <= data_buf[one_degree_pos+9];
-                    data_buf[one_degree_pos+9] <= data_buf[one_degree_pos+8];
-                    data_buf[one_degree_pos+8] <= data_buf[one_degree_pos];
-                end
-                CLKWISE_ROT: begin
-                data_buf[one_degree_pos] <= data_buf[one_degree_pos+8];
-                data_buf[one_degree_pos+8] <= data_buf[one_degree_pos+9];
-                data_buf[one_degree_pos+9] <= data_buf[one_degree_pos+1]; 
-                data_buf[one_degree_pos+1] <= data_buf[one_degree_pos];
-                end
-                MIRROR_X: begin
-                    data_buf[one_degree_pos] <= data_buf[one_degree_pos+8];
-                    data_buf[one_degree_pos+1] <= data_buf[one_degree_pos+9];
-                    data_buf[one_degree_pos+8] <= data_buf[one_degree_pos];
-                    data_buf[one_degree_pos+9] <= data_buf[one_degree_pos+1];
-                end
-                default: begin  //MIRROR_Y
-                    data_buf[one_degree_pos] <= data_buf[one_degree_pos+1];
-                    data_buf[one_degree_pos+1] <= data_buf[one_degree_pos];
-                    data_buf[one_degree_pos+8] <= data_buf[one_degree_pos+9];
-                    data_buf[one_degree_pos+9] <= data_buf[one_degree_pos+8];
-                end 
-            endcase        
-        end
-        else if(cur_state == LOAD_DATA) begin//LOAD_DATA
-            if(pixel_counter >= 7'd2 && pixel_counter <= 7'd64)
-                data_buf[IROM_A-1] <= IROM_Q;
-            else begin end
-        end
-        else begin //WAIT_CMD
-            if(pixel_counter == 7'd65)
-                data_buf[IROM_A] <= IROM_Q;
-            else begin end
-        end
+            end
+        endcase
     end
 end
 
-always @(*) begin
-    one_degree_pos <= ({3'd0,row} << 3) + col - 6'd9;
-end
-
-always @(posedge clk or posedge reset) 
-begin
-    if(reset) begin
-        cmd_reg <= cmd;
-        pixel_counter <= 7'd0;
-        IRAM_A <= 6'd0;
-        IRAM_valid <= 1'd0;
-        IROM_rd <= 1'd1;
-        busy <= 1'd1;
-        done <= 1'd0;
-    end 
-    else begin
-        case(cur_state)
-            LOAD_DATA: begin
-                if(IROM_rd == 1'd1) begin
-                    if(pixel_counter == 7'd0) begin
-                        IROM_A <= 6'd0;
-                        pixel_counter <= 7'd1;
-                    end
-                    else if(pixel_counter >= 7'd1 && pixel_counter < 7'd64) begin
-                        IROM_A <= IROM_A + 6'd1;
-                        pixel_counter <= pixel_counter + 7'd1;
-                    end
-                    else if(pixel_counter == 7'd64) begin
-                        IROM_rd <= 1'd0;
-                        busy <= 1'd0;
-                        pixel_counter <= pixel_counter + 7'd1;
-                    end
-                    else begin end
-                end
-                else begin end
-            end
-            PROCESS: begin
-                case(cmd_reg) 
-                    WRITE: begin
-                        if(pixel_counter == 7'd0 || pixel_counter == 7'd65) begin
-                            pixel_counter <= 7'd1;
-                            IRAM_A <= 6'd0;
-                            IRAM_D <= data_buf[0];
-                            IRAM_valid <= 1'd1;
-                            busy <= 1'd1;        
-                        end
-                        else if(pixel_counter == 7'd64) begin
-                            pixel_counter <= 7'd0;
-                            IRAM_A <= 6'd0;
-                            IRAM_valid <= 1'd0;
-                            busy <= 1'd0;
-                            done <= 1'd1;
-                        end
-                        else begin
-                            IRAM_A <= IRAM_A + 6'd1;
-                            pixel_counter <= pixel_counter + 7'd1;
-                            IRAM_D <= data_buf[pixel_counter];
-                        end
-                    end
-                    default: begin 
-                        busy <= 1'd0;
-                    end                
-                endcase
-            end
-            default: begin  //WAIT_CMD
-                if(cmd_valid) begin
-                    cmd_reg <= cmd;
-                    busy <= 1'd1;
-                end
-                else begin end
-            end
-        endcase
-    end   
-end
-
 endmodule
-
-
-
