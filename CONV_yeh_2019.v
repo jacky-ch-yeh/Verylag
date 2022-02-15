@@ -25,10 +25,10 @@ reg [4:0] cur_state, next_state;
 reg signed [6:0] row, col;
 reg signed [2:0] rofs, cofs;
 wire signed [11:0] mul_addr;
-assign mul_addr = (row + rofs) * 64 + (col + cofs);
+assign mul_addr = ((row + rofs) <<< 6) + (col + cofs);
 
 reg signed [39:0] conv;
-reg signed [19:0] kernel [8:0];
+reg signed [19:0] kernel [3:0];
 
 localparam signed BIAS = 20'h01310; //4int 16dec
 
@@ -125,16 +125,6 @@ begin
 		rofs <= 0;
 		cofs <= 0;
 		conv <= 0;
-
-		kernel[0] <= 20'h0A89E;
-		kernel[1] <= 20'h092D5;
-		kernel[2] <= 20'h06D43;
-		kernel[3] <= 20'h01004;
-		kernel[4] <= 20'hF8F71;
-		kernel[5] <= 20'hF6E54;
-		kernel[6] <= 20'hFA6D7;
-		kernel[7] <= 20'hFC834;
-		kernel[8] <= 20'hFAC19;
 	end
 	else 
 	begin
@@ -146,9 +136,20 @@ begin
 			end
 			1: begin // decide the # of grayscale pixel
 				iaddr <= mul_addr;
+				case((rofs * 3 + cofs))
+					0: kernel[0] <= 20'h0A89E;
+					1: kernel[0] <= 20'h092D5;
+					2: kernel[0] <= 20'h06D43;
+					3: kernel[0] <= 20'h01004;
+					4: kernel[0] <= 20'hF8F71;
+					5: kernel[0] <= 20'hF6E54;
+					6: kernel[0] <= 20'hFA6D7;
+					7: kernel[0] <= 20'hFC834;
+					default: kernel[0] <= 20'hFAC19;
+				endcase
 			end
 			2: begin // calculate convolution
-				conv <= conv + idata * kernel[(rofs * 3 + cofs)];
+				conv <= conv + idata * kernel[0];
 			end
 			3: begin // update offset
 				if(rofs == 2 && cofs == 2) begin
