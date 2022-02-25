@@ -1,0 +1,23 @@
+隊號(Team number): gcc031
+
+使用之HDL名稱(Verilog or VHDL): Verilog
+-----------------------------------RTL  Level -------------------------------------
+Top-Level設計檔案名稱(Top-Level design file name): CS.v
+Sub-module設計檔案名稱(Sub-module design file name): module01.v / module02.v / module02.v
+
+ModelSim所產生之RTL Simulation 波形檔名稱(.wlf):  CS_rtl.wlf
+RTL simulation時, 所使用最小的 CYCLE  = (     20      ) ns
+
+--------------------------Post-layout Gate-Level---------------------------------
+
+Logic Utilization:  (    3311      ) of Slice Flip Flops + (    3314       ) of 4 input LUTs      
+Post-layout Gate-Level檔案名稱(Gate-Level Netlist file name):  CS_time.vo
+Post-layout Gate-Level simulation SDF檔案名稱(sdf file name):  CS_time.sdf
+ModelSim所產生之Post-layout Simulation 波形檔名稱(.wlf): CS_time.wlf
+
+Post-layout Gate-Level simulation時, 所使用最小的 CYCLE  = (     25       ) ns
+
+--------------------------------------------------------------------------------------
+其他說明事項(Any other information you want to specify:(如設計特點 ...)
+
+使用超快速xxx架構........
