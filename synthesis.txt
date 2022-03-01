@@ -1,0 +1,12 @@
+csh
+menu -z
+dc_shell
+source synopsys_dc.setup
+read_file top_module.v
+source top_module.sdc
+compile
+report_area
+report_timing
+write -format verilog -hierarchy -output top_module_syn.v
+write_sdf -version 2.1 top_module_syn.sdf
+ncverilog testfixture.v top_module_syn.v -v tsmc13_neg.v +define+SDF +access+r
