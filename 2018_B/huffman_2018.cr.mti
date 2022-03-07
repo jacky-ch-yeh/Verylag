@@ -1,0 +1,14 @@
+D:/verylag/Verylag/2018_B/tb.v {1 {vlog -work work -stats=none D:/verylag/Verylag/2018_B/tb.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module tb
+
+Top level modules:
+	tb
+
+} {} {}} D:/verylag/Verylag/2018_B/huffman.v {0 {vlog -work work -stats=none {D:\verylag\Verylag\2018_B\huffman.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module huffman
+** Error (suppressible): (vlog-10008) D:\verylag\Verylag\2018_B\huffman.v(128): Too many indices (2) for array type HC3 (dimensionality 1).
+** Error (suppressible): (vlog-10008) D:\verylag\Verylag\2018_B\huffman.v(129): Too many indices (2) for array type M3 (dimensionality 1).
+
+} {} {}}
