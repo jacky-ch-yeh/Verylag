@@ -1,0 +1,444 @@
+# Compile of testbench.v was successful.
+# Compile of TPA.v was successful.
+# 2 compiles, 0 failed with no errors.
+vsim -gui work.testfixture
+# vsim -gui work.testfixture 
+# Start time: 15:34:34 on Mar 10,2022
+# Loading work.testfixture
+# Loading work.TPA
+add wave -position insertpoint sim:/testfixture/u_TPA/*
+run 500000ps
+restart -f
+run -all
+#  ----------------------------------------------------------------------
+# TEST START !!!
+#  ----------------------------------------------------------------------
+#   
+#  Stage 1. Register Interface Master [ WRITE ] Test ...
+#   
+#  Stage 1. Result Check ...
+#   
+#  Stage 1 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 2. Register Interface Master [ READ + WRITE ] Test ...
+#   
+#  Stage 2. Result Check ...
+#   
+#  Stage 2 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 3. Two-Wire Protocol Slaver [ WRITE ] Test ...
+#   
+#  Stage 3. Result Check ...
+#   
+#  Pattern          64 at address          64 Fail!, expected result is e413, but the responsed result is xxxx
+#  Pattern          65 at address          65 Fail!, expected result is f595, but the responsed result is xxxx
+#  Pattern          66 at address          66 Fail!, expected result is 8c17, but the responsed result is xxxx
+#  Pattern          67 at address          67 Fail!, expected result is 237d, but the responsed result is xxxx
+#  Pattern          68 at address          68 Fail!, expected result is 2639, but the responsed result is xxxx
+#  Pattern          69 at address          69 Fail!, expected result is 41ed, but the responsed result is xxxx
+#  Pattern          70 at address          70 Fail!, expected result is d73a, but the responsed result is xxxx
+#  Pattern          71 at address          71 Fail!, expected result is 4119, but the responsed result is xxxx
+#  Pattern          72 at address          72 Fail!, expected result is d075, but the responsed result is xxxx
+#  Pattern          73 at address          73 Fail!, expected result is 3e58, but the responsed result is xxxx
+#  Pattern          74 at address          74 Fail!, expected result is ede5, but the responsed result is xxxx
+#  Pattern          75 at address          75 Fail!, expected result is 5999, but the responsed result is xxxx
+#  Pattern          76 at address          76 Fail!, expected result is 3255, but the responsed result is xxxx
+#  Pattern          77 at address          77 Fail!, expected result is 4048, but the responsed result is xxxx
+#  Pattern          78 at address          78 Fail!, expected result is 9db6, but the responsed result is xxxx
+#  Pattern          79 at address          79 Fail!, expected result is 792a, but the responsed result is xxxx
+#  Pattern          80 at address          80 Fail!, expected result is 5a07, but the responsed result is xxxx
+#  Pattern          81 at address          81 Fail!, expected result is d4b2, but the responsed result is xxxx
+#  Pattern          82 at address          82 Fail!, expected result is 95d4, but the responsed result is xxxx
+#  Pattern          83 at address          83 Fail!, expected result is 8cbb, but the responsed result is xxxx
+#  Pattern          84 at address          84 Fail!, expected result is eace, but the responsed result is xxxx
+#  Pattern          85 at address          85 Fail!, expected result is 492d, but the responsed result is xxxx
+#  Pattern          86 at address          86 Fail!, expected result is c1d8, but the responsed result is xxxx
+#  Pattern          87 at address          87 Fail!, expected result is c0f5, but the responsed result is xxxx
+#  Pattern          88 at address          88 Fail!, expected result is 6165, but the responsed result is xxxx
+#  Pattern          89 at address          89 Fail!, expected result is 915d, but the responsed result is xxxx
+#  Pattern          90 at address          90 Fail!, expected result is 136c, but the responsed result is xxxx
+#  Pattern          91 at address          91 Fail!, expected result is 0dd0, but the responsed result is xxxx
+#  Pattern          92 at address          92 Fail!, expected result is 87e3, but the responsed result is xxxx
+#  Pattern          93 at address          93 Fail!, expected result is c778, but the responsed result is xxxx
+#  Pattern          94 at address          94 Fail!, expected result is ef1c, but the responsed result is xxxx
+#  Pattern          95 at address          95 Fail!, expected result is 2142, but the responsed result is xxxx
+#  Stage 3 . FAIL!, There are          32 error data in register spaces
+#   
+#  ------------------------------------ 
+#  Stage 4. Two-Wire Protocol Slaver [ READ + WRITE ] Test ...
+#   
+# 
+# -----------------------------------------------------
+# 
+# The simulation can't be terminated properly! Please correct your code !! 
+# 
+# -------------------------------------------------------
+# 
+# ** Note: $finish    : D:/verylag/Verylag/E/E_2018_final/testbench.v(257)
+#    Time: 300 ms  Iteration: 0  Instance: /testfixture
+# 1
+# Break in Module testfixture at D:/verylag/Verylag/E/E_2018_final/testbench.v line 257
+# Compile of testbench.v was successful.
+# Compile of TPA.v failed with 1 errors.
+# 2 compiles, 1 failed with 1 error.
+# Compile of testbench.v was successful.
+# Compile of TPA.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart -f
+# Loading work.testfixture
+# Loading work.TPA
+run -all
+#  ----------------------------------------------------------------------
+# TEST START !!!
+#  ----------------------------------------------------------------------
+#   
+#  Stage 1. Register Interface Master [ WRITE ] Test ...
+#   
+#  Stage 1. Result Check ...
+#   
+#  Stage 1 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 2. Register Interface Master [ READ + WRITE ] Test ...
+#   
+#  Stage 2. Result Check ...
+#   
+#  Stage 2 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 3. Two-Wire Protocol Slaver [ WRITE ] Test ...
+#   
+#  Stage 3. Result Check ...
+#   
+#  Stage 3 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 4. Two-Wire Protocol Slaver [ READ + WRITE ] Test ...
+#   
+# 
+# -----------------------------------------------------
+# 
+# The simulation can't be terminated properly! Please correct your code !! 
+# 
+# -------------------------------------------------------
+# 
+# ** Note: $finish    : D:/verylag/Verylag/E/E_2018_final/testbench.v(257)
+#    Time: 300 ms  Iteration: 0  Instance: /testfixture
+# 1
+# Break in Module testfixture at D:/verylag/Verylag/E/E_2018_final/testbench.v line 257
+add wave -position insertpoint  \
+sim:/testfixture/u_TPA/Register_Spaces \
+sim:/testfixture/u_TPA/TWM_A \
+sim:/testfixture/u_TPA/cnt
+restart -f
+run -all
+#  ----------------------------------------------------------------------
+# TEST START !!!
+#  ----------------------------------------------------------------------
+#   
+#  Stage 1. Register Interface Master [ WRITE ] Test ...
+#   
+#  Stage 1. Result Check ...
+#   
+#  Stage 1 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 2. Register Interface Master [ READ + WRITE ] Test ...
+#   
+#  Stage 2. Result Check ...
+#   
+#  Stage 2 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 3. Two-Wire Protocol Slaver [ WRITE ] Test ...
+#   
+#  Stage 3. Result Check ...
+#   
+#  Stage 3 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 4. Two-Wire Protocol Slaver [ READ + WRITE ] Test ...
+#   
+# 
+# -----------------------------------------------------
+# 
+# The simulation can't be terminated properly! Please correct your code !! 
+# 
+# -------------------------------------------------------
+# 
+# ** Note: $finish    : D:/verylag/Verylag/E/E_2018_final/testbench.v(257)
+#    Time: 300 ms  Iteration: 0  Instance: /testfixture
+# 1
+# Break in Module testfixture at D:/verylag/Verylag/E/E_2018_final/testbench.v line 257
+# Compile of testbench.v was successful.
+# Compile of TPA.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart -f
+# Loading work.testfixture
+# Loading work.TPA
+run -all
+#  ----------------------------------------------------------------------
+# TEST START !!!
+#  ----------------------------------------------------------------------
+#   
+#  Stage 1. Register Interface Master [ WRITE ] Test ...
+#   
+#  Stage 1. Result Check ...
+#   
+#  Stage 1 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 2. Register Interface Master [ READ + WRITE ] Test ...
+#   
+#  Stage 2. Result Check ...
+#   
+#  Stage 2 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 3. Two-Wire Protocol Slaver [ WRITE ] Test ...
+#   
+#  Stage 3. Result Check ...
+#   
+#  Stage 3 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 4. Two-Wire Protocol Slaver [ READ + WRITE ] Test ...
+#   
+# 
+# -----------------------------------------------------
+# 
+# The simulation can't be terminated properly! Please correct your code !! 
+# 
+# -------------------------------------------------------
+# 
+# ** Note: $finish    : D:/verylag/Verylag/E/E_2018_final/testbench.v(257)
+#    Time: 300 ms  Iteration: 0  Instance: /testfixture
+# 1
+# Break in Module testfixture at D:/verylag/Verylag/E/E_2018_final/testbench.v line 257
+# Compile of testbench.v was successful.
+# Compile of TPA.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart -f
+# Loading work.testfixture
+# Loading work.TPA
+run -all
+#  ----------------------------------------------------------------------
+# TEST START !!!
+#  ----------------------------------------------------------------------
+#   
+#  Stage 1. Register Interface Master [ WRITE ] Test ...
+#   
+#  Stage 1. Result Check ...
+#   
+#  Stage 1 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 2. Register Interface Master [ READ + WRITE ] Test ...
+#   
+#  Stage 2. Result Check ...
+#   
+#  Stage 2 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 3. Two-Wire Protocol Slaver [ WRITE ] Test ...
+#   
+#  Stage 3. Result Check ...
+#   
+#  Stage 3 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 4. Two-Wire Protocol Slaver [ READ + WRITE ] Test ...
+#   
+# 
+# -----------------------------------------------------
+# 
+# The simulation can't be terminated properly! Please correct your code !! 
+# 
+# -------------------------------------------------------
+# 
+# ** Note: $finish    : D:/verylag/Verylag/E/E_2018_final/testbench.v(257)
+#    Time: 300 ms  Iteration: 0  Instance: /testfixture
+# 1
+# Break in Module testfixture at D:/verylag/Verylag/E/E_2018_final/testbench.v line 257
+# Compile of testbench.v was successful.
+# Compile of TPA.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart -f
+# Loading work.testfixture
+# Loading work.TPA
+run -all
+#  ----------------------------------------------------------------------
+# TEST START !!!
+#  ----------------------------------------------------------------------
+#   
+#  Stage 1. Register Interface Master [ WRITE ] Test ...
+#   
+#  Stage 1. Result Check ...
+#   
+#  Stage 1 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 2. Register Interface Master [ READ + WRITE ] Test ...
+#   
+#  Stage 2. Result Check ...
+#   
+#  Stage 2 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 3. Two-Wire Protocol Slaver [ WRITE ] Test ...
+#   
+#  Stage 3. Result Check ...
+#   
+#  Stage 3 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 4. Two-Wire Protocol Slaver [ READ + WRITE ] Test ...
+#   
+#  Stage 4. Result Check ...
+#   
+#  Stage 4 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 5. RIM and TWS concurrently [ READ + WRITE ] Test ...
+#   
+# 
+# -----------------------------------------------------
+# 
+# The simulation can't be terminated properly! Please correct your code !! 
+# 
+# -------------------------------------------------------
+# 
+# ** Note: $finish    : D:/verylag/Verylag/E/E_2018_final/testbench.v(257)
+#    Time: 300 ms  Iteration: 0  Instance: /testfixture
+# 1
+# Break in Module testfixture at D:/verylag/Verylag/E/E_2018_final/testbench.v line 257
+# Compile of testbench.v was successful.
+# Compile of TPA.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart -f
+# Loading work.testfixture
+# Loading work.TPA
+run -all
+#  ----------------------------------------------------------------------
+# TEST START !!!
+#  ----------------------------------------------------------------------
+#   
+#  Stage 1. Register Interface Master [ WRITE ] Test ...
+#   
+#  Stage 1. Result Check ...
+#   
+#  Stage 1 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 2. Register Interface Master [ READ + WRITE ] Test ...
+#   
+#  Stage 2. Result Check ...
+#   
+#  Stage 2 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 3. Two-Wire Protocol Slaver [ WRITE ] Test ...
+#   
+#  Stage 3. Result Check ...
+#   
+#  Stage 3 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 4. Two-Wire Protocol Slaver [ READ + WRITE ] Test ...
+#   
+#  Stage 4. Result Check ...
+#   
+#  Stage 4 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 5. RIM and TWS concurrently [ READ + WRITE ] Test ...
+#   
+# 
+# -----------------------------------------------------
+# 
+# The simulation can't be terminated properly! Please correct your code !! 
+# 
+# -------------------------------------------------------
+# 
+# ** Note: $finish    : D:/verylag/Verylag/E/E_2018_final/testbench.v(257)
+#    Time: 300 ms  Iteration: 0  Instance: /testfixture
+# 1
+# Break in Module testfixture at D:/verylag/Verylag/E/E_2018_final/testbench.v line 257
+# Compile of testbench.v was successful.
+# Compile of TPA.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart -f
+# Loading work.testfixture
+# Loading work.TPA
+run -all
+#  ----------------------------------------------------------------------
+# TEST START !!!
+#  ----------------------------------------------------------------------
+#   
+#  Stage 1. Register Interface Master [ WRITE ] Test ...
+#   
+# 
+# -----------------------------------------------------
+# 
+# The simulation can't be terminated properly! Please correct your code !! 
+# 
+# -------------------------------------------------------
+# 
+# ** Note: $finish    : D:/verylag/Verylag/E/E_2018_final/testbench.v(257)
+#    Time: 300 ms  Iteration: 0  Instance: /testfixture
+# 1
+# Break in Module testfixture at D:/verylag/Verylag/E/E_2018_final/testbench.v line 257
+# Compile of testbench.v was successful.
+# Compile of TPA.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart -f
+# Loading work.testfixture
+# Loading work.TPA
+run -all
+#  ----------------------------------------------------------------------
+# TEST START !!!
+#  ----------------------------------------------------------------------
+#   
+#  Stage 1. Register Interface Master [ WRITE ] Test ...
+#   
+#  Stage 1. Result Check ...
+#   
+#  Stage 1 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 2. Register Interface Master [ READ + WRITE ] Test ...
+#   
+#  Stage 2. Result Check ...
+#   
+#  Stage 2 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 3. Two-Wire Protocol Slaver [ WRITE ] Test ...
+#   
+#  Stage 3. Result Check ...
+#   
+#  Stage 3 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 4. Two-Wire Protocol Slaver [ READ + WRITE ] Test ...
+#   
+#  Stage 4. Result Check ...
+#   
+#  Stage 4 . PASS!
+#   
+#  ------------------------------------ 
+#  Stage 5. RIM and TWS concurrently [ READ + WRITE ] Test ...
+#   
+# 
+# -----------------------------------------------------
+# 
+# The simulation can't be terminated properly! Please correct your code !! 
+# 
+# -------------------------------------------------------
+# 
+# ** Note: $finish    : D:/verylag/Verylag/E/E_2018_final/testbench.v(257)
+#    Time: 300 ms  Iteration: 0  Instance: /testfixture
+# 1
+# Break in Module testfixture at D:/verylag/Verylag/E/E_2018_final/testbench.v line 257
