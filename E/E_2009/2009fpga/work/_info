@@ -1,0 +1,117 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dD:/verylag/Verylag/2018_B
+vBUFFER
+Z0 !s110 1646755631
+!i10b 1
+!s100 :G^Qn2Q9:dL2kN8WBh_g02
+I9R315hGEL7iRCQ1K:B_LS3
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+Z2 dD:/verylag/Verylag/2009/2009fpga
+Z3 w1237258532
+Z4 8D:/verylag/Verylag/2009/2009fpga/flash_u.v
+Z5 FD:/verylag/Verylag/2009/2009fpga/flash_u.v
+L0 1628
+Z6 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z7 !s108 1646755631.000000
+Z8 !s107 D:/verylag/Verylag/2009/2009fpga/flash_u.v|
+Z9 !s90 -reportprogress|300|-work|work|-stats=none|D:/verylag/Verylag/2009/2009fpga/flash_u.v|
+!i113 1
+Z10 o-work work
+Z11 tCvgOpt 0
+n@b@u@f@f@e@r
+vFC
+R0
+!i10b 1
+!s100 9RT4lkE3kCcC@_fGfEbjf0
+IG6BoJ_UhWA4ho:`2fbCeX3
+R1
+R2
+w1646755621
+8D:/verylag/Verylag/2009/2009fpga/FC.v
+FD:/verylag/Verylag/2009/2009fpga/FC.v
+L0 2
+R6
+r1
+!s85 0
+31
+R7
+!s107 D:/verylag/Verylag/2009/2009fpga/FC.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/verylag/Verylag/2009/2009fpga/FC.v|
+!i113 1
+R10
+R11
+n@f@c
+vflash
+R0
+!i10b 1
+!s100 3SFkG??;D2WYHm@V6a6ko1
+IP0M?f;mUmC4Q77W8mO::L0
+R1
+R2
+R3
+R4
+R5
+L0 3
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+vt13rf128x8
+R0
+!i10b 1
+!s100 Y9QSDKC5gBjj04I4YG`9z1
+IhJ3;li7fYnamB=Gh=9@b13
+R1
+R2
+R3
+8D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v
+FD:/verylag/Verylag/2009/2009fpga/t13rf128x8.v
+L0 55
+R6
+r1
+!s85 0
+31
+R7
+!s107 D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v|
+!i113 1
+R10
+R11
+vtest
+R0
+!i10b 1
+!s100 UKdWfb::`LTD[5^e7j9Ui2
+IhmI>1hTXSzLn8ZMnQh]0o3
+R1
+R2
+w1238118632
+8D:/verylag/Verylag/2009/2009fpga/testfixture.v
+FD:/verylag/Verylag/2009/2009fpga/testfixture.v
+L0 20
+R6
+r1
+!s85 0
+31
+R7
+!s107 ./flash_u.v|./t13rf128x8.v|D:/verylag/Verylag/2009/2009fpga/testfixture.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/verylag/Verylag/2009/2009fpga/testfixture.v|
+!i113 1
+R10
+R11

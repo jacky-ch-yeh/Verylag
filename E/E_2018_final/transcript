@@ -442,3 +442,5 @@ run -all
 #    Time: 300 ms  Iteration: 0  Instance: /testfixture
 # 1
 # Break in Module testfixture at D:/verylag/Verylag/E/E_2018_final/testbench.v line 257
+# End time: 22:20:55 on Mar 10,2022, Elapsed time: 6:46:21
+# Errors: 0, Warnings: 0
