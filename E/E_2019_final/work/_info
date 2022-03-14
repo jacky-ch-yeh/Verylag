@@ -1,0 +1,95 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dD:/verylag/Verylag/E/E_2018_final
+vasin_rom
+Z0 !s110 1647245651
+!i10b 1
+!s100 PG2GG:Ro]5^_Ba;kmgO:O3
+I[;iJ^JE;6R;djk?l<C48R0
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+Z2 dD:/verylag/Verylag/E/E_2019_final
+Z3 w1556518417
+Z4 8D:/verylag/Verylag/E/E_2019_final/testbench.v
+Z5 FD:/verylag/Verylag/E/E_2019_final/testbench.v
+L0 183
+Z6 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z7 !s108 1647245651.000000
+Z8 !s107 D:/verylag/Verylag/E/E_2019_final/testbench.v|
+Z9 !s90 -reportprogress|300|-work|work|-stats=none|D:/verylag/Verylag/E/E_2019_final/testbench.v|
+!i113 1
+Z10 o-work work
+Z11 tCvgOpt 0
+vcos_rom
+R0
+!i10b 1
+!s100 ;o>d_AWBW8cS^Rd1;]8X:1
+IcShzTz13e2`di6?9;J23j2
+R1
+R2
+R3
+R4
+R5
+L0 261
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+vGPSDC
+R0
+!i10b 1
+!s100 10Fz038RZZYXWNKImThcf3
+Izhn9TE3GTcG_zN]CC4XzV1
+R1
+R2
+w1647245643
+8D:/verylag/Verylag/E/E_2019_final/GPSDC.v
+FD:/verylag/Verylag/E/E_2019_final/GPSDC.v
+L0 2
+R6
+r1
+!s85 0
+31
+R7
+!s107 D:/verylag/Verylag/E/E_2019_final/GPSDC.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/verylag/Verylag/E/E_2019_final/GPSDC.v|
+!i113 1
+R10
+R11
+n@g@p@s@d@c
+vtest
+R0
+!i10b 1
+!s100 gUUl5S9>>?^Wj1AZa0jXC1
+I_]n4I_c=GBz=Y==kB<gLm3
+R1
+R2
+R3
+R4
+R5
+L0 11
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11

@@ -5,11 +5,4 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 Top level modules:
 	testfixture
 
-} {} {}} D:/verylag/Verylag/E/E_2018_final/TPA.v {1 {vlog -work work -stats=none D:/verylag/Verylag/E/E_2018_final/TPA.v
-Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
--- Compiling module TPA
-
-Top level modules:
-	TPA
-
 } {} {}}
