@@ -19,8 +19,8 @@ reg gray_req, lbp_valid, finish;
 localparam Idle = 3'd0;
 localparam Read_In_9 = 3'd1;
 localparam LBP_Cal = 3'd2;
-localparam Read_In_3 = 3'd3;
-localparam Modify_Map = 3'd4;
+localparam Modify_Map = 3'd3;
+localparam Read_In_3 = 3'd4;
 
 reg [2:0] cur_state, next_state;
 reg [6:0] x, y;
@@ -37,15 +37,15 @@ assign lbp_addr = one_dim_addr;
 always @(*) begin
     next_state = cur_state;
     case (cur_state)
-        0: if (gray_ready) next_state = 1;
-        1: if (x_t == 4'd2 && y_t == 4'd2) next_state = 2;
-        2: if (count == 3'd7) next_state = 4;
-        3: if (y_t == 4'd2) next_state = 2;
-        4: begin
+        Idle: if (gray_ready) next_state = Read_In_9;
+        Read_In_9: if (x_t == 4'd2 && y_t == 4'd2) next_state = LBP_Cal;
+        LBP_Cal: if (count == 3'd7) next_state = Modify_Map;
+        Read_In_3: if (y_t == 4'd2) next_state = LBP_Cal;
+        default: begin
             if (x == 7'd125) 
-                next_state = 1;
+                next_state = Read_In_9;
             else 
-                next_state = 3;
+                next_state = Read_In_3;
         end
     endcase
 end
@@ -67,25 +67,23 @@ begin
     else 
     begin
         case (cur_state)
-            0: begin
+            Idle: begin
                 gray_req <= (gray_ready) ? 1 : 0;
             end
-            1: begin
-                if (x_t == 4'd1 && y_t == 4'd1) begin
+            Read_In_9: begin
+                if (x_t == 4'd1 && y_t == 4'd1)
                     lbp_central <= gray_data;
-                    count <= count;
-                end
-                else begin
+                else
                     lbp_map[count] <= gray_data;
-                    count <= count + 3'd1;
-                end
 
                 if (x_t == 4'd2 && y_t == 4'd2) begin
                     x_t <= 4'd1;
                     y_t <= 4'd1;
+                    count <= 3'd0;
                     lbp_data <= 8'd0;
                 end
                 else begin
+                    count <= (x_t != 4'd1 || y_t != 4'd1) ? count + 3'd1 : count;
                     if (x_t == 4'd2) begin
                         x_t <= 4'd0;
                         y_t <= y_t + 4'd1;
@@ -95,12 +93,12 @@ begin
                     end
                 end
             end
-            2: begin
+            LBP_Cal: begin
                 lbp_data <= lbp_data + ((lbp_map[count] >= lbp_central) ? 8'd1 <<< count : 8'd0);
                 count <= count + 3'd1;
                 lbp_valid <= (count == 3'd7) ? 1 : 0;
             end
-            3: begin 
+            Read_In_3: begin 
                 if (y_t == 4'd2) begin
                     x_t <= 4'd1;
                     y_t <= 4'd1;
@@ -115,7 +113,7 @@ begin
                         lbp_map[4] <= gray_data;
                 end
             end
-            4: begin // Modify_Map
+            default: begin // Modify_Map
                 if (x == 7'd125 && y == 7'd125) begin
                     finish <= 1;
                 end
