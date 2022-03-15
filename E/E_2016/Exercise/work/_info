@@ -1,5 +1,6 @@
 m255
 K3
+z0
 13
 cModel Technology
 Z0 dC:\modeltech64_10.1c\examples
@@ -10,59 +11,68 @@ VE?iAT0G=f`65Elz]8[=FP3
 o-quiet -auto_acc_if_foreign -work work
 n@_opt
 OL;O;10.1c;51
-Z1 dC:\modeltech64_10.1c\examples
+R0
 vLBP
-VL1Ch1Nn^EC`@z>SNNJd[m0
-r1
-31
-IN@R`DdJeM_l<Bo;[A]>`V2
-Z2 dD:\Verylag\E\E_2016\Exercise
-w1647316970
-8D:/Verylag/E/E_2016/Exercise/LBP.v
-FD:/Verylag/E/E_2016/Exercise/LBP.v
+Z1 !s110 1647325639
+!i10b 1
+!s100 7o9Flzfdhm1zH==]k?VcF3
+I938V14oRffL>L8nnEC>>:2
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+Z3 dD:/verylag/Verylag/E/E_2016/Exercise
+w1647325636
+8D:/verylag/Verylag/E/E_2016/Exercise/LBP.v
+FD:/verylag/Verylag/E/E_2016/Exercise/LBP.v
 L0 3
-Z3 OL;L;10.1c;51
-Z4 o-work work -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF
+Z4 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z5 !s108 1647325639.000000
+!s107 D:/verylag/Verylag/E/E_2016/Exercise/LBP.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/verylag/Verylag/E/E_2016/Exercise/LBP.v|
+!i113 1
+Z6 o-work work
+Z7 tCvgOpt 0
 n@l@b@p
-!s85 0
-!s90 -reportprogress|300|-work|work|-vopt|D:/Verylag/E/E_2016/Exercise/LBP.v|
-!s100 zjSlb;geBk^K_>f[OlbMM0
-!s108 1647316977.838000
-!s107 D:/Verylag/E/E_2016/Exercise/LBP.v|
-!i10b 1
 vlbp_mem
-V4^>^19e9minGgac6Q`VUB3
+R1
+!i10b 1
+!s100 hzn;9L7_jdf`C?WKg?;el3
+IbZ7`kFEJYi]KDQ>kPPLZ02
+R2
+R3
+Z8 w1646128869
+Z9 8D:/verylag/Verylag/E/E_2016/Exercise/testfixture.v
+Z10 FD:/verylag/Verylag/E/E_2016/Exercise/testfixture.v
+L0 134
+R4
 r1
 !s85 0
 31
-Idz2HZn[4<O5FBF?zPYReW1
-R2
-Z5 w1647307934
-Z6 8D:/Verylag/E/E_2016/Exercise/testfixture.v
-Z7 FD:/Verylag/E/E_2016/Exercise/testfixture.v
-L0 134
-R3
-Z8 !s108 1647316977.902000
-Z9 !s107 D:/Verylag/E/E_2016/Exercise/testfixture.v|
-Z10 !s90 -reportprogress|300|-work|work|-vopt|D:/Verylag/E/E_2016/Exercise/testfixture.v|
-R4
-!s100 F^HF?zm`=Dd8>]jM9idKT2
-!i10b 1
-vtestfixture
-VA47mW?eGS^dWC?fbCnia03
-r1
-31
-IO8R=_041Ac^FSAnzOG4ch0
-R2
 R5
+Z11 !s107 D:/verylag/Verylag/E/E_2016/Exercise/testfixture.v|
+Z12 !s90 -reportprogress|300|-work|work|-stats=none|D:/verylag/Verylag/E/E_2016/Exercise/testfixture.v|
+!i113 1
 R6
 R7
-L0 10
+vtestfixture
+R1
+!i10b 1
+!s100 d0JTk@0n;ISBU^R=KoNBQ1
+IzPHf_3C5n2kzEg0LQD;ne3
+R2
 R3
 R8
 R9
 R10
+L0 10
 R4
+r1
 !s85 0
-!s100 <T33JW1Z;DFjVk4CTL=[c3
-!i10b 1
+31
+R5
+R11
+R12
+!i113 1
+R6
+R7
