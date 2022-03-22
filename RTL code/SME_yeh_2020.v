@@ -7,280 +7,151 @@ input ispattern;
 output match;
 output [4:0] match_index;
 output valid;
-reg match;
+
+localparam Hat = 8'h5E;
+localparam Dollar = 8'h24;
+localparam Dot = 8'h2E;
+localparam Space = 8'h20;
+
+localparam LOAD = 0;
+localparam OUTPUT = 1;
+localparam PROCESS = 2;
+
+reg match, valid;
 reg [4:0] match_index;
-reg valid;
 
-localparam HEAD = 8'h5E;
-localparam DOLLAR = 8'h24;
-localparam SPACE = 8'h20;
-localparam DOT = 8'h2E;
+reg [1:0] cur_state, next_state;
+reg [7:0] string[31:0], pattern[7:0];
+reg [5:0] str_idx, pat_idx;
+reg [5:0] str_max, pat_max;
+reg [5:0] str_ptr;
 
-reg state;
-reg [7:0] string[31:0]; // 32 characters
-reg [7:0] pattern[7:0]; // 8 characters
-reg [4:0] spaces[31:0]; 
-reg [4:0] spa_idx, spa_max;
-reg [4:0] str_idx, str_head, str_max;
-reg is_str_reset;
-reg [2:0] pat_idx, pat_max;
-reg [1:0] mode;
+reg [1:0] mode; // Hat or Dollar
+reg finish;
+reg success;
 
-always@(posedge clk or posedge reset)
+reg is_H, is_D;
+
+always @(*)
 begin
+    next_state = cur_state;
+    case (cur_state)
+        LOAD: if (!isstring && !ispattern) next_state = PROCESS;
+        PROCESS: if (finish) next_state = OUTPUT;
+        default: next_state = LOAD;
+    endcase
+end
 
-    if(reset) begin
+always @(posedge clk or posedge reset)
+begin
+    if (reset)begin
+        valid <= 0;
         match <= 0;
         match_index <= 5'd0;
-        valid <= 0;
-
-        str_idx <= 5'd0;
-        pat_idx <= 3'd0;
-        spa_idx <= 5'd0;
-        str_max <= 5'd0;
-        pat_max <= 3'd0;
-        spa_max <= 5'd0;
-        str_head <= 5'd0;
-        mode <= 2'd0;
-        is_str_reset <= 0;
-        state <= 0;
+        str_idx <= 0;
+        pat_idx <= 0;
+        mode <= 0;
+        success <= 'hx;
+        finish <= 0;
     end
     else begin
-        case(state)
-            0: 
-            begin
-                if(isstring) 
-                begin
+        case(cur_state)
+            LOAD: begin
+                valid <= 0;
+                str_idx <= 0;
+                pat_idx <= 0;
+                if(isstring) begin
                     string[str_idx] <= chardata;
-                    str_idx <= str_idx + 5'd1;
-
-                    if(chardata == SPACE) begin
-                        spaces[spa_idx] <= str_idx;
-                        spa_idx <= spa_idx + 5'd1;
-                    end
-                    else begin
-                        spa_idx <= spa_idx;
-                    end
-                    is_str_reset <= 1;
+                    str_idx <= str_idx + 1;
+                    str_max <= str_idx;
                 end
-                else if(ispattern) 
-                begin
-                    if (chardata == HEAD) begin
+                else if(ispattern) begin
+                    str_idx <= 0;
+                    if(chardata == Hat) begin
                         mode[1] <= 1;
                     end
-                    else if (chardata == DOLLAR) begin
+                    else if(chardata == Dollar) begin
                         mode[0] <= 1;
                     end
                     else begin
                         pattern[pat_idx] <= chardata;
-                        pat_idx <= pat_idx + 3'd1;
+                        pat_idx <= pat_idx + 1;
+                        pat_max <= pat_idx;
                     end
                 end
-                else 
-                begin
-                    pat_idx <= 3'd0;
-                    str_idx <= 5'd0;
-                    spa_idx <= 5'd0;
-                    str_max <= (is_str_reset) ? (str_idx - 5'd1) : str_max;
-                    pat_max <= pat_idx - 3'd1;
-                    spa_max <= (is_str_reset) ? (spa_idx - 5'd1) : spa_max;
-                    is_str_reset <= 0;
-                    state <= 1;
+                else begin
+                    pat_idx <= 0;
+                    str_ptr <= 1;
                 end
-                valid <= 0;
-                match <= 0;
             end
-            1: 
-            begin
-                case(mode)
-                    2'b00: 
-                    begin
-                        if((string[str_head + str_idx] == pattern[pat_idx]) || (pattern[pat_idx] == DOT)) 
-                        begin
-                            if(pat_idx == pat_max) begin
-                                valid <= 1;
-                                match <= 1;
-                                match_index <= str_head;
-                                str_idx <= 5'd0;
-                                pat_idx <= 3'd0;
-                                str_head <= 5'd0;
-                                mode <= 2'd0;
-                                state <= 0;
-                            end
-                            else begin
-                                str_idx <= str_idx + 5'd1;
-                                pat_idx <= (pat_idx == pat_max) ? 3'd0 : (pat_idx + 3'd1);
-                            end
-                        end
-                        else 
-                        begin
-                            str_head <= str_head + 5'd1;
-                            str_idx <= 5'd0;
-                            pat_idx <= 3'd0;
-                        end
-
-                        if((str_head == str_max) && (pat_idx < pat_max)) begin
-                            valid <= 1;
-                            match <= 0;
-                            match_index <= 5'dx;
-                            str_idx <= 5'd0;
-                            pat_idx <= 3'd0;
-                            str_head <= 5'd0;
-                            mode <= 2'd0;
-                            state <= 0;
-                        end
-                        else begin 
-                        end
-                    end
-                    2'b01: begin
-                        if((string[str_head + str_idx] == pattern[pat_idx]) || (pattern[pat_idx] == DOT)) 
-                        begin
-                            if(pat_idx == pat_max) 
-                            begin
-                                if(string[str_head + str_idx + 5'd1] == SPACE || str_head + str_idx == str_max) begin
-                                    valid <= 1;
-                                    match <= 1;
-                                    match_index <= str_head;
-                                    str_idx <= 5'd0;
-                                    pat_idx <= 3'd0;
-                                    str_head <= 5'd0;
-                                    mode <= 2'd0;
-                                    state <= 0;
-                                end
-                                else begin
-                                    pat_idx <= 3'd0;
-                                    str_head <= str_head + 5'd1;
-                                    str_idx <= 5'd0;
-                                end
-                            end
-                            else begin
-                                pat_idx <= (pat_idx == pat_max) ? 3'd0 : (pat_idx + 3'd1);
-                                str_idx <= str_idx + 5'd1;
-                            end
-                        end
-                        else 
-                        begin
-                            str_head <= str_head + 5'd1;
-                            str_idx <= 5'd0;
-                            pat_idx <= 5'd0;
-                        end
-
-                        if((str_head == str_max) && (pat_idx < pat_max)) begin
-                            valid <= 1;
-                            match <= 0;
-                            match_index <= 5'dx;
-                            str_idx <= 5'd0;
-                            pat_idx <= 3'd0;
-                            str_head <= 5'd0;
-                            mode <= 2'd0;
-                            state <= 0;
-                        end
-                        else begin 
-                        end
-                    end
-                    2'b10: begin
-                        if((string[str_head + str_idx] == pattern[pat_idx]) || (pattern[pat_idx] == DOT)) 
-                        begin
-                            if(pat_idx == pat_max) begin
-                                valid <= 1;
-                                match <= 1;
-                                match_index <= str_head;
-                                str_idx <= 5'd0;
-                                pat_idx <= 3'd0;
-                                spa_idx <= 5'd0;
-                                str_head <= 5'd0;
-                                mode <= 2'd0;
-                                state <= 0;
-                            end
-                            else begin
-                                pat_idx <= (pat_idx == pat_max) ? 3'd0 : (pat_idx + 3'd1);
-                                str_idx <= str_idx + 5'd1;
-                            end
-                        end
-                        else 
-                        begin
-                            pat_idx <= 3'd0;
-                            str_idx <= 5'd0;
-                            if(spa_idx <= spa_max) begin
-                                str_head <= ((spaces[spa_idx] + 5'd1) <= str_max) ? (spaces[spa_idx] + 5'd1) : spaces[spa_idx];
-                                spa_idx <= spa_idx + 5'd1;
-                            end
-                            else begin
-                                valid <= 1;
-                                match <= 0;
-                                match_index <= 5'dx;
-                                spa_idx <= 5'd0;
-                                str_head <= 5'd0;
-                                mode <= 2'd0;
-                                state <= 0;
-                            end
-                        end                    
-                    end
-                    default: 
-                    begin
-                        if((string[str_head + str_idx] == pattern[pat_idx]) || (pattern[pat_idx] == DOT)) 
-                        begin
-                            if((pat_idx == pat_max)) 
-                            begin
-                                if((string[str_head + str_idx + 5'd1] == SPACE) || (str_head + str_idx == str_max)) 
-                                begin
-                                    valid <= 1;
-                                    match <= 1;
-                                    match_index <= str_head;
-                                    str_idx <= 5'd0;
-                                    pat_idx <= 3'd0;
-                                    spa_idx <= 5'd0;
-                                    str_head <= 5'd0;
-                                    mode <= 2'd0;
-                                    state <= 0;
-                                end
-                                else 
-                                begin
-                                    pat_idx <= 3'd0;
-                                    str_idx <= 5'd0;
-                                    if(spa_idx <= spa_max) begin
-                                        str_head <= ((spaces[spa_idx] + 5'd1) <= str_max) ? (spaces[spa_idx] + 5'd1) : spaces[spa_idx];
-                                        spa_idx <= spa_idx + 5'd1;
-                                    end
-                                    else begin
-                                        valid <= 1;
-                                        match <= 0;
-                                        match_index <= 5'dx;
-                                        spa_idx <= 5'd0;
-                                        str_head <= 5'd0;
-                                        mode <= 2'd0;
-                                        state <= 0;
-                                    end
-                                end
-                            end
-                            else begin
-                                pat_idx <= (pat_idx == pat_max) ? 3'd0 : (pat_idx + 3'd1);
-                                str_idx <= str_idx + 5'd1;
-                            end
+            PROCESS:begin // both
+                if (str_idx == str_max + 1) begin // overflow
+                    finish <= 1;
+                    success <= 0;
+                end
+                else if (string[str_idx] == pattern[pat_idx] || pattern[pat_idx] == Dot) begin
+                    if(pat_idx == pat_max) begin
+                        if (is_H && is_D) begin
+                            finish <= 1;
+                            match_index <= str_idx - pat_max;
+                            success <= 1;
                         end
                         else begin
-                            str_idx <= 5'd0;
-                            pat_idx <= 3'd0;
-                            if(spa_idx <= spa_max) begin
-                                str_head <= ((spaces[spa_idx] + 5'd1) <= str_max) ? (spaces[spa_idx] + 5'd1) : spaces[spa_idx];
-                                spa_idx <= spa_idx + 5'd1;
-                            end
-                            else begin
-                                valid <= 1;
-                                match <= 0;
-                                match_index <= 5'dx;
-                                spa_idx <= 5'd0;
-                                str_head <= 5'd0;
-                                mode <= 2'd0;
-                                state <= 0;
-                            end
-                        end 
+                            pat_idx <= 0;
+                            str_idx <= str_ptr;
+                            str_ptr <= str_ptr + 1;
+                        end
                     end
-                endcase
+                    else begin
+                        str_idx <= str_idx + 1;
+                        pat_idx <= pat_idx + 1;
+                    end
+                end
+                else begin
+                    pat_idx <= 0;
+                    str_idx <= str_ptr;
+                    str_ptr <= str_ptr + 1;
+                end
+            end
+            default: begin
+                valid <= 1;
+                finish <= 0;
+                success <= 'hx;
+                if(success) begin
+                    match <= 1;
+                end
+                else begin
+                    match <= 0;
+                end
+                str_idx <= 0;
+                pat_idx <= 0;
+                mode <= 0;
             end
         endcase
+
     end
 
+end
+
+always @(posedge clk or posedge reset)
+begin
+    if (reset)
+        cur_state <= LOAD;
+    else
+        cur_state <= next_state;
+end
+
+always @(*)
+begin
+    if (mode == 2'b00 || mode == 2'b01) is_H = 1;
+    else if (str_idx == pat_max) is_H = 1;
+    else if (string[str_idx - pat_max - 1] == Space) is_H = 1;
+    else is_H = 0;
+        
+    if (mode == 2'b00 || mode == 2'b10) is_D = 1;
+    else if (str_idx == str_max) is_D = 1;
+    else if (string[str_idx + 1] == Space) is_D = 1;
+    else is_D = 0;
 end
 
 endmodule

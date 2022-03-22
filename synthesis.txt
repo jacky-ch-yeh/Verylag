@@ -4,9 +4,13 @@ dc_shell
 source synopsys_dc.setup
 read_file top_module.v
 source top_module.sdc
-compile
+compile (compile_ultra {-area_high_effort_script}/{-timinq_high_effort_script})
 report_area
 report_timing
 write -format verilog -hierarchy -output top_module_syn.v
 write_sdf -version 2.1 top_module_syn.sdf
 ncverilog testfixture.v top_module_syn.v -v tsmc13_neg.v +define+SDF +access+r
+
+write -format verilog -hierarchy -output SME_syn.v
+write_sdf -version 2.1 SME_syn.sdf
+ncverilog tb.sv SME_syn.v -sv tsmc13_neg.v +define+SDF +access+r
