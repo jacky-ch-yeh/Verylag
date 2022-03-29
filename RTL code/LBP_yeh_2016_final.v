@@ -28,23 +28,21 @@ reg [7:0] lbp_map[7:0], lbp_central;
 reg [2:0] count;
 reg [3:0] x_t, y_t;
 wire [13:0] one_dim_addr;
-reg [7:0] data;
+wire en[7:0];
 
 assign one_dim_addr = {y + y_t, x + x_t}; 
 assign gray_addr = one_dim_addr;
 assign lbp_addr = one_dim_addr;
-assign lbp_data = data;
+assign lbp_data = {en[7], en[6], en[5], en[4], en[3], en[2], en[1], en[0]};
 
-always @(*) begin
-    data[0] = (lbp_map[0] >= lbp_central) ? 1'b1 : 1'b0;
-    data[1] = (lbp_map[1] >= lbp_central) ? 1'b1 : 1'b0;
-    data[2] = (lbp_map[2] >= lbp_central) ? 1'b1 : 1'b0;
-    data[3] = (lbp_map[3] >= lbp_central) ? 1'b1 : 1'b0;
-    data[4] = (lbp_map[4] >= lbp_central) ? 1'b1 : 1'b0;
-    data[5] = (lbp_map[5] >= lbp_central) ? 1'b1 : 1'b0;
-    data[6] = (lbp_map[6] >= lbp_central) ? 1'b1 : 1'b0;
-    data[7] = (lbp_map[7] >= lbp_central) ? 1'b1 : 1'b0;
-end
+assign en[0] = (lbp_map[0] >= lbp_central) ? 1'b1 : 1'b0;
+assign en[1] = (lbp_map[1] >= lbp_central) ? 1'b1 : 1'b0;
+assign en[2] = (lbp_map[2] >= lbp_central) ? 1'b1 : 1'b0;
+assign en[3] = (lbp_map[3] >= lbp_central) ? 1'b1 : 1'b0;
+assign en[4] = (lbp_map[4] >= lbp_central) ? 1'b1 : 1'b0;
+assign en[5] = (lbp_map[5] >= lbp_central) ? 1'b1 : 1'b0;
+assign en[6] = (lbp_map[6] >= lbp_central) ? 1'b1 : 1'b0;
+assign en[7] = (lbp_map[7] >= lbp_central) ? 1'b1 : 1'b0;
 
 //====================================================================
 always @(*) begin
@@ -55,10 +53,8 @@ always @(*) begin
         LBP_Out: next_state = Modify_Map;
         Read_In_3: if (y_t == 4'd2) next_state = LBP_Out;
         default: begin
-            if (x == 7'd125) 
-                next_state = Read_In_9;
-            else 
-                next_state = Read_In_3;
+            if (x == 7'd125) next_state = Read_In_9;
+            else next_state = Read_In_3;
         end
     endcase
 end

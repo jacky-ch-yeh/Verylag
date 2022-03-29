@@ -12,7 +12,7 @@ reg busy;
 reg valid;
 reg [7:0] candidate;
 
-reg [4:0] state;
+reg [3:0] state;
 reg in_A, in_B;
 reg [3:0] X, Y;
 reg [8:0] sum_of_squares;

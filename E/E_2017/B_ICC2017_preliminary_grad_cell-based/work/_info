@@ -1,0 +1,97 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dD:/110_2/dic/HW/HW2/file
+vDT
+Z0 !s110 1648484486
+!i10b 1
+!s100 D8K@[H?ooa0j<0SnbhNHb0
+I[`WHBilBVBcI;3z>^7oGY1
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+Z2 dD:/verylag/Verylag/E/E_2017/B_ICC2017_preliminary_grad_cell-based
+w1648484372
+8D:/verylag/Verylag/E/E_2017/B_ICC2017_preliminary_grad_cell-based/DT.v
+FD:/verylag/Verylag/E/E_2017/B_ICC2017_preliminary_grad_cell-based/DT.v
+L0 1
+Z3 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z4 !s108 1648484486.000000
+!s107 D:/verylag/Verylag/E/E_2017/B_ICC2017_preliminary_grad_cell-based/DT.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/verylag/Verylag/E/E_2017/B_ICC2017_preliminary_grad_cell-based/DT.v|
+!i113 1
+Z5 o-work work
+Z6 tCvgOpt 0
+n@d@t
+vres_RAM
+R0
+!i10b 1
+!s100 Dh16Z2ZV7PQ:fAdY]AjIc0
+I_hS=O`@dT75MhnL2^Gk`k1
+R1
+R2
+Z7 w1648484482
+Z8 8D:/verylag/Verylag/E/E_2017/B_ICC2017_preliminary_grad_cell-based/testfixture.v
+Z9 FD:/verylag/Verylag/E/E_2017/B_ICC2017_preliminary_grad_cell-based/testfixture.v
+L0 220
+R3
+r1
+!s85 0
+31
+R4
+Z10 !s107 D:/verylag/Verylag/E/E_2017/B_ICC2017_preliminary_grad_cell-based/testfixture.v|
+Z11 !s90 -reportprogress|300|-work|work|-stats=none|D:/verylag/Verylag/E/E_2017/B_ICC2017_preliminary_grad_cell-based/testfixture.v|
+!i113 1
+R5
+R6
+nres_@r@a@m
+vsti_ROM
+R0
+!i10b 1
+!s100 `Um`z21nRO4_`6KmW[lzC3
+I<1DnkEQjhkD4f48FLVnO]0
+R1
+R2
+R7
+R8
+R9
+L0 196
+R3
+r1
+!s85 0
+31
+R4
+R10
+R11
+!i113 1
+R5
+R6
+nsti_@r@o@m
+vtestfixture
+R0
+!i10b 1
+!s100 JkQ<8UgcSkaU:?9]=fcJf1
+IbCB<=RC`G>[l^;dbY7mbi3
+R1
+R2
+R7
+R8
+R9
+L0 16
+R3
+r1
+!s85 0
+31
+R4
+R10
+R11
+!i113 1
+R5
+R6

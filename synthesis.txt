@@ -11,6 +11,6 @@ write -format verilog -hierarchy -output top_module_syn.v
 write_sdf -version 2.1 top_module_syn.sdf
 ncverilog testfixture.v top_module_syn.v -v tsmc13_neg.v +define+SDF +access+r
 
-write -format verilog -hierarchy -output SME_syn.v
-write_sdf -version 2.1 SME_syn.sdf
-ncverilog tb.sv SME_syn.v -sv tsmc13_neg.v +define+SDF +access+r
+write -format verilog -hierarchy -output DT_syn.v
+write_sdf -version 2.1 DT_syn.sdf
+ncverilog testfixture.v DT_syn.v -v tsmc13_neg.v +define+SDF +access+r +define+TB1

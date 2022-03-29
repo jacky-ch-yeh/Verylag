@@ -1,8 +1,8 @@
 `timescale 1ns/10ps
-`define CYCLE      20.0          	  // Modify your clock period here
+`define CYCLE      10.0          	  // Modify your clock period here
 `define SDFFILE    "../SYN/DT_syn.sdf"	  // Modify your sdf file name
 `define End_CYCLE  100000000             // Modify cycle times once your design need more cycle times!
-
+`define TB2
 `ifdef TB1
 	`define PAT        "./dat/Geometry_sti.dat"    
 	`define FWEXP        "./dat/Geometry_fwexp.dat"  
@@ -97,7 +97,7 @@ initial begin
 end
 
 
-
+/*
 initial begin // FW-PASS result compare
 fwpass_chk = 0;
 	#(`CYCLE*3);
@@ -123,7 +123,7 @@ fwpass_chk = 0;
 					
   				end					
 	end
-end 
+end */
 
 initial begin // BC-PASS result compare
 bcpass_chk = 0;
