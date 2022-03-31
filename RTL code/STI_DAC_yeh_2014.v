@@ -188,7 +188,7 @@ always @(posedge clk or posedge reset) begin
 					set1 <= 1'd1; // 一開始先 set pixel_reg
 				end
 				else begin // reverse
-					pixel_reg <= {pi_reg[0], pi_reg[1], pi_reg[2], pi_reg[3], pi_reg[4], pi_reg[5], pi_reg[6], pi_reg[7], pi_reg[8], pi_reg[9], pi_reg[10], pi_reg[11], pi_reg[12], pi_reg[13], pi_reg[14], pi_reg[15], pi_reg[16], pi_reg[17], pi_reg[18], pi_reg[19], pi_reg[20], pi_reg[21], pi_reg[22], pi_reg[23], pi_reg[24], pi_reg[25], pi_reg[26], pi_reg[27], pi_reg[28], pi_reg[29], pi_reg[30], pi_reg[31]};
+					pixel_reg <= pi_reg[0:31];
 					set1 <= 1'd1;
 				end
 				if(set1) begin // set1 == 1 代表pixel_reg set好了
