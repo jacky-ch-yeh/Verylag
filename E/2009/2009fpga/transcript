@@ -1,0 +1,395 @@
+# Compile of testfixture.v was successful.
+# Compile of FC.v was successful.
+# Compile of flash_u.v was successful.
+# Compile of t13rf128x8.v was successful.
+# 4 compiles, 0 failed with no errors.
+vsim -gui work.test
+# vsim -gui work.test 
+# Start time: 22:45:47 on Mar 08,2022
+# Loading work.test
+# Loading work.FC
+# Loading work.t13rf128x8
+# Loading work.flash
+# Loading work.BUFFER
+# WARNING: No extended dataflow license exists
+add wave -position insertpoint sim:/test/top/*
+# Compile of testfixture.v was successful.
+# Compile of FC.v failed with 2 errors.
+# Compile of flash_u.v was successful.
+# Compile of t13rf128x8.v was successful.
+# 4 compiles, 1 failed with 2 errors.
+# Compile of testfixture.v was successful.
+# Compile of FC.v failed with 1 errors.
+# Compile of flash_u.v was successful.
+# Compile of t13rf128x8.v was successful.
+# 4 compiles, 1 failed with 1 error.
+# Compile of testfixture.v was successful.
+# Compile of FC.v failed with 2 errors.
+# Compile of flash_u.v was successful.
+# Compile of t13rf128x8.v was successful.
+# 4 compiles, 1 failed with 2 errors.
+# Compile of testfixture.v was successful.
+# Compile of FC.v was successful.
+# Compile of flash_u.v was successful.
+# Compile of t13rf128x8.v was successful.
+# 4 compiles, 0 failed with no errors.
+# Load canceled
+vsim -gui work.test
+# End time: 23:38:16 on Mar 08,2022, Elapsed time: 0:52:29
+# Errors: 1, Warnings: 1
+# vsim -gui work.test 
+# Start time: 23:38:16 on Mar 08,2022
+# Loading work.test
+# Loading work.FC
+# Loading work.t13rf128x8
+# Loading work.flash
+# Loading work.BUFFER
+# WARNING: No extended dataflow license exists
+add wave -position insertpoint  \
+sim:/test/top/M_D_reg \
+sim:/test/top/F_IO_reg \
+sim:/test/top/cur \
+sim:/test/top/next
+add wave -position insertpoint sim:/test/top/*
+run 100000ps
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(422): $hold( posedge CLK &&& re_flag:5 ns, posedge WEN:5 ns, 500 ps );
+#    Time: 5 ns  Iteration: 5  Instance: /test/m1
+# Compile of testfixture.v was successful.
+# Compile of FC.v was successful.
+# Compile of flash_u.v was successful.
+# Compile of t13rf128x8.v was successful.
+# 4 compiles, 0 failed with no errors.
+restart -f
+# Loading work.test
+# Loading work.FC
+# Loading work.t13rf128x8
+# Loading work.flash
+# Loading work.BUFFER
+run 100000ps
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(422): $hold( posedge CLK &&& re_flag:5 ns, posedge WEN:5 ns, 500 ps );
+#    Time: 5 ns  Iteration: 5  Instance: /test/m1
+# Command # 1: Write, A_flash = 00e01H, A_memory = 09H, Length = 101.
+# ERROR : flash[00e01] = ff (expect = 67) 
+# ERROR : flash[00e02] = ff (expect = 44) 
+# ERROR : flash[00e03] = ff (expect = 2c) 
+# ERROR : flash[00e04] = ff (expect = 78) 
+# ERROR : flash[00e05] = ff (expect = 70) 
+# ERROR : flash[00e06] = ff (expect = 46) 
+# ERROR : flash[00e07] = ff (expect = 4f) 
+# ERROR : flash[00e08] = ff (expect = 4b) 
+# ERROR : flash[00e09] = ff (expect = 1a) 
+# ERROR : flash[00e0a] = ff (expect = 26) 
+# ERROR : flash[00e0b] = ff (expect = 3c) 
+# ERROR : flash[00e0c] = ff (expect = 1d) 
+# ERROR : flash[00e0d] = ff (expect = 6c) 
+# ERROR : flash[00e0e] = ff (expect = 18) 
+# ERROR : flash[00e0f] = ff (expect = 1c) 
+# ERROR : flash[00e10] = ff (expect = 15) 
+# ERROR : flash[00e11] = ff (expect = 1d) 
+# ERROR : flash[00e12] = ff (expect = 37) 
+# ERROR : flash[00e13] = ff (expect = 27) 
+# ERROR : flash[00e14] = ff (expect = 76) 
+# ERROR : flash[00e15] = ff (expect = 37) 
+# ERROR : flash[00e16] = ff (expect = 17) 
+# ERROR : flash[00e17] = ff (expect = 73) 
+# ERROR : flash[00e18] = ff (expect = 7d) 
+# ERROR : flash[00e19] = ff (expect = 38) 
+# ERROR : flash[00e1a] = ff (expect = 0e) 
+# ERROR : flash[00e1b] = ff (expect = 21) 
+# ERROR : flash[00e1c] = ff (expect = 34) 
+# ERROR : flash[00e1d] = ff (expect = 4c) 
+# ERROR : flash[00e1e] = ff (expect = 21) 
+# ERROR : flash[00e1f] = ff (expect = 4d) 
+# ERROR : flash[00e20] = ff (expect = 5b) 
+# ERROR : flash[00e21] = ff (expect = 1c) 
+# ERROR : flash[00e22] = ff (expect = 0f) 
+# ERROR : flash[00e23] = ff (expect = 25) 
+# ERROR : flash[00e24] = ff (expect = 28) 
+# ERROR : flash[00e25] = ff (expect = 36) 
+# ERROR : flash[00e26] = ff (expect = 41) 
+# ERROR : flash[00e27] = ff (expect = 0a) 
+# ERROR : flash[00e28] = ff (expect = 21) 
+# ERROR : flash[00e29] = ff (expect = 66) 
+# ERROR : flash[00e2a] = ff (expect = 03) 
+# ERROR : flash[00e2b] = ff (expect = 76) 
+# ERROR : flash[00e2c] = ff (expect = 5d) 
+# ERROR : flash[00e2d] = ff (expect = 3e) 
+# ERROR : flash[00e2e] = ff (expect = 4a) 
+# ERROR : flash[00e2f] = ff (expect = 1e) 
+# ERROR : flash[00e30] = ff (expect = 3a) 
+# ERROR : flash[00e31] = ff (expect = 7b) 
+# ERROR : flash[00e32] = ff (expect = 45) 
+# ERROR : flash[00e33] = ff (expect = 42) 
+# ERROR : flash[00e34] = ff (expect = 1d) 
+# ERROR : flash[00e35] = ff (expect = 3e) 
+# ERROR : flash[00e36] = ff (expect = 4f) 
+# ERROR : flash[00e37] = ff (expect = 56) 
+# ERROR : flash[00e38] = ff (expect = 32) 
+# ERROR : flash[00e39] = ff (expect = 2f) 
+# ERROR : flash[00e3a] = ff (expect = 7e) 
+# ERROR : flash[00e3b] = ff (expect = 04) 
+# ERROR : flash[00e3c] = ff (expect = 71) 
+# ERROR : flash[00e3d] = ff (expect = 74) 
+# ERROR : flash[00e3e] = ff (expect = 65) 
+# ERROR : flash[00e3f] = ff (expect = 0c) 
+# ERROR : flash[00e40] = ff (expect = 21) 
+# ERROR : flash[00e41] = ff (expect = 2a) 
+# ERROR : flash[00e42] = ff (expect = 57) 
+# ERROR : flash[00e43] = ff (expect = 11) 
+# ERROR : flash[00e44] = ff (expect = 5c) 
+# ERROR : flash[00e45] = ff (expect = 0d) 
+# ERROR : flash[00e46] = ff (expect = 53) 
+# ERROR : flash[00e47] = ff (expect = 3f) 
+# ERROR : flash[00e48] = ff (expect = 63) 
+# ERROR : flash[00e49] = ff (expect = 5b) 
+# ERROR : flash[00e4a] = ff (expect = 73) 
+# ERROR : flash[00e4b] = ff (expect = 72) 
+# ERROR : flash[00e4c] = ff (expect = 2a) 
+# ERROR : flash[00e4d] = ff (expect = 59) 
+# ERROR : flash[00e4e] = ff (expect = 19) 
+# ERROR : flash[00e4f] = ff (expect = 03) 
+# ERROR : flash[00e50] = ff (expect = 5f) 
+# ERROR : flash[00e51] = ff (expect = 40) 
+# ERROR : flash[00e52] = ff (expect = 3d) 
+# ERROR : flash[00e53] = ff (expect = 73) 
+# ERROR : flash[00e54] = ff (expect = 4e) 
+# ERROR : flash[00e55] = ff (expect = 4f) 
+# ERROR : flash[00e56] = ff (expect = 6e) 
+# ERROR : flash[00e57] = ff (expect = 67) 
+# ERROR : flash[00e58] = ff (expect = 49) 
+# ERROR : flash[00e59] = ff (expect = 17) 
+# ERROR : flash[00e5a] = ff (expect = 1e) 
+# ERROR : flash[00e5b] = ff (expect = 71) 
+# ERROR : flash[00e5c] = ff (expect = 03) 
+# ERROR : flash[00e5d] = ff (expect = 3e) 
+# ERROR : flash[00e5e] = ff (expect = 15) 
+# ERROR : flash[00e5f] = ff (expect = 7d) 
+# ERROR : flash[00e60] = ff (expect = 5b) 
+# ERROR : flash[00e61] = ff (expect = 40) 
+# ERROR : flash[00e62] = ff (expect = 3c) 
+# ERROR : flash[00e63] = ff (expect = 07) 
+# ERROR : flash[00e64] = ff (expect = 57) 
+# ERROR : flash[00e65] = ff (expect = 05) 
+# ------------------------------------------
+# There are         101 errors!
+# -------------------FAIL-------------------
+# ** Note: $finish    : D:/verylag/Verylag/2009/2009fpga/testfixture.v(155)
+#    Time: 62 ns  Iteration: 0  Instance: /test
+# 1
+# Break in Module test at D:/verylag/Verylag/2009/2009fpga/testfixture.v line 155
+# Compile of testfixture.v was successful.
+# Compile of FC.v was successful.
+# Compile of flash_u.v was successful.
+# Compile of t13rf128x8.v was successful.
+# 4 compiles, 0 failed with no errors.
+restart -f
+# Loading work.test
+# Loading work.FC
+# Loading work.t13rf128x8
+# Loading work.flash
+# Loading work.BUFFER
+run 100000ps
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(422): $hold( posedge CLK &&& re_flag:5 ns, posedge WEN:5 ns, 500 ps );
+#    Time: 5 ns  Iteration: 5  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(439): $hold( posedge WENeg &&& Check_IO0_WENeg:25 ns, IO7:25 ns, 1 ns );
+#    Time: 25 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(438): $hold( posedge WENeg &&& Check_IO0_WENeg:25 ns, IO6:25 ns, 1 ns );
+#    Time: 25 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(437): $hold( posedge WENeg &&& Check_IO0_WENeg:25 ns, IO5:25 ns, 1 ns );
+#    Time: 25 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(436): $hold( posedge WENeg &&& Check_IO0_WENeg:25 ns, IO4:25 ns, 1 ns );
+#    Time: 25 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(435): $hold( posedge WENeg &&& Check_IO0_WENeg:25 ns, IO3:25 ns, 1 ns );
+#    Time: 25 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(434): $hold( posedge WENeg &&& Check_IO0_WENeg:25 ns, IO2:25 ns, 1 ns );
+#    Time: 25 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(433): $hold( posedge WENeg &&& Check_IO0_WENeg:25 ns, IO1:25 ns, 1 ns );
+#    Time: 25 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(432): $hold( posedge WENeg &&& Check_IO0_WENeg:25 ns, IO0:25 ns, 1 ns );
+#    Time: 25 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(439): $hold( posedge WENeg &&& Check_IO0_WENeg:25 ns, IO7:25 ns, 1 ns );
+#    Time: 25 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(438): $hold( posedge WENeg &&& Check_IO0_WENeg:25 ns, IO6:25 ns, 1 ns );
+#    Time: 25 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(437): $hold( posedge WENeg &&& Check_IO0_WENeg:25 ns, IO5:25 ns, 1 ns );
+#    Time: 25 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(436): $hold( posedge WENeg &&& Check_IO0_WENeg:25 ns, IO4:25 ns, 1 ns );
+#    Time: 25 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(435): $hold( posedge WENeg &&& Check_IO0_WENeg:25 ns, IO3:25 ns, 1 ns );
+#    Time: 25 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(434): $hold( posedge WENeg &&& Check_IO0_WENeg:25 ns, IO2:25 ns, 1 ns );
+#    Time: 25 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(433): $hold( posedge WENeg &&& Check_IO0_WENeg:25 ns, IO1:25 ns, 1 ns );
+#    Time: 25 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(432): $hold( posedge WENeg &&& Check_IO0_WENeg:25 ns, IO0:25 ns, 1 ns );
+#    Time: 25 ns  Iteration: 3  Instance: /test/f1
+# Command # 1: Write, A_flash = 00e01H, A_memory = 09H, Length = 101.
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(437): $hold( posedge CLK &&& re_flag:45 ns, negedge A[6]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 3  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(435): $hold( posedge CLK &&& re_flag:45 ns, negedge A[5]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 3  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(433): $hold( posedge CLK &&& re_flag:45 ns, negedge A[4]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 3  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(430): $hold( posedge CLK &&& re_flag:45 ns, posedge A[3]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 3  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(429): $hold( posedge CLK &&& re_flag:45 ns, negedge A[2]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 3  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(427): $hold( posedge CLK &&& re_flag:45 ns, negedge A[1]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 3  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(424): $hold( posedge CLK &&& re_flag:45 ns, posedge A[0]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 3  Instance: /test/m1
+# Compile of testfixture.v was successful.
+# Compile of FC.v was successful.
+# Compile of flash_u.v was successful.
+# Compile of t13rf128x8.v was successful.
+# 4 compiles, 0 failed with no errors.
+restart -f
+# Loading work.test
+# Loading work.FC
+# Loading work.t13rf128x8
+# Loading work.flash
+# Loading work.BUFFER
+run 100000ps
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(422): $hold( posedge CLK &&& re_flag:5 ns, posedge WEN:5 ns, 500 ps );
+#    Time: 5 ns  Iteration: 5  Instance: /test/m1
+# Command # 1: Write, A_flash = 00e01H, A_memory = 09H, Length = 101.
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(437): $hold( posedge CLK &&& re_flag:45 ns, negedge A[6]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 5  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(435): $hold( posedge CLK &&& re_flag:45 ns, negedge A[5]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 5  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(433): $hold( posedge CLK &&& re_flag:45 ns, negedge A[4]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 5  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(430): $hold( posedge CLK &&& re_flag:45 ns, posedge A[3]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 5  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(429): $hold( posedge CLK &&& re_flag:45 ns, negedge A[2]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 5  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(427): $hold( posedge CLK &&& re_flag:45 ns, negedge A[1]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 5  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(424): $hold( posedge CLK &&& re_flag:45 ns, posedge A[0]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 5  Instance: /test/m1
+# Compile of testfixture.v was successful.
+# Compile of FC.v was successful.
+# Compile of flash_u.v was successful.
+# Compile of t13rf128x8.v was successful.
+# 4 compiles, 0 failed with no errors.
+restart -f
+# Loading work.test
+# Loading work.FC
+# Loading work.t13rf128x8
+# Loading work.flash
+# Loading work.BUFFER
+run 100000ps
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(422): $hold( posedge CLK &&& re_flag:5 ns, posedge WEN:5 ns, 500 ps );
+#    Time: 5 ns  Iteration: 5  Instance: /test/m1
+# Command # 1: Write, A_flash = 00e01H, A_memory = 09H, Length = 101.
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(439): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO7:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(438): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO6:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(437): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO5:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(436): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO4:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(435): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO3:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(434): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO2:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(433): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO1:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(432): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO0:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(439): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO7:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(438): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO6:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(437): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO5:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(436): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO4:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(435): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO3:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(434): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO2:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(433): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO1:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(432): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO0:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(437): $hold( posedge CLK &&& re_flag:45 ns, negedge A[6]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 3  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(435): $hold( posedge CLK &&& re_flag:45 ns, negedge A[5]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 3  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(433): $hold( posedge CLK &&& re_flag:45 ns, negedge A[4]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 3  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(430): $hold( posedge CLK &&& re_flag:45 ns, posedge A[3]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 3  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(429): $hold( posedge CLK &&& re_flag:45 ns, negedge A[2]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 3  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(427): $hold( posedge CLK &&& re_flag:45 ns, negedge A[1]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 3  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(424): $hold( posedge CLK &&& re_flag:45 ns, posedge A[0]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 3  Instance: /test/m1
+# Compile of testfixture.v was successful.
+# Compile of FC.v was successful.
+# Compile of flash_u.v was successful.
+# Compile of t13rf128x8.v was successful.
+# 4 compiles, 0 failed with no errors.
+restart -f
+# Loading work.test
+# Loading work.FC
+# Loading work.t13rf128x8
+# Loading work.flash
+# Loading work.BUFFER
+run 100000ps
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(422): $hold( posedge CLK &&& re_flag:5 ns, posedge WEN:5 ns, 500 ps );
+#    Time: 5 ns  Iteration: 5  Instance: /test/m1
+# Command # 1: Write, A_flash = 00e01H, A_memory = 09H, Length = 101.
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(439): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO7:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(438): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO6:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(437): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO5:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(436): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO4:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(435): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO3:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(434): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO2:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(433): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO1:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(432): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO0:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(439): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO7:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(438): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO6:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(437): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO5:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(436): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO4:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(435): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO3:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(434): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO2:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(433): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO1:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/flash_u.v(432): $hold( posedge WENeg &&& Check_IO0_WENeg:45 ns, IO0:45 ns, 1 ns );
+#    Time: 45 ns  Iteration: 3  Instance: /test/f1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(437): $hold( posedge CLK &&& re_flag:45 ns, negedge A[6]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 3  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(435): $hold( posedge CLK &&& re_flag:45 ns, negedge A[5]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 3  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(433): $hold( posedge CLK &&& re_flag:45 ns, negedge A[4]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 3  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(430): $hold( posedge CLK &&& re_flag:45 ns, posedge A[3]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 3  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(429): $hold( posedge CLK &&& re_flag:45 ns, negedge A[2]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 3  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(427): $hold( posedge CLK &&& re_flag:45 ns, negedge A[1]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 3  Instance: /test/m1
+# ** Error: D:/verylag/Verylag/2009/2009fpga/t13rf128x8.v(424): $hold( posedge CLK &&& re_flag:45 ns, posedge A[0]:45 ns, 500 ps );
+#    Time: 45 ns  Iteration: 3  Instance: /test/m1
+quit -sim
+# End time: 00:30:43 on Mar 09,2022, Elapsed time: 0:52:27
+# Errors: 82, Warnings: 1
+exit

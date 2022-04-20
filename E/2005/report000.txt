@@ -1,0 +1,23 @@
+隊號(Team number): 
+
+使用之HDL名稱(Verilog or VHDL): 
+-----------------------------------RTL  Level -------------------------------------
+Top-Level設計檔案名稱(Top-Level design file name): 
+Sub-module設計檔案名稱(Sub-module design file name):
+
+ModelSim所產生之RTL Simulation 波形檔名稱(.wlf):  
+RTL simulation時, 所使用最小的 CYCLE  = (             ) ns
+
+--------------------------Post-layout Gate-Level---------------------------------
+
+Logic Utilization:  (              ) of Slice Flip Flops + (               ) of 4 input LUTs      
+Post-layout Gate-Level檔案名稱(Gate-Level Netlist file name):  
+Post-layout Gate-Level simulation SDF檔案名稱(sdf file name):  
+ModelSim所產生之Post-layout Simulation 波形檔名稱(.wlf): 
+
+Post-layout Gate-Level simulation時, 所使用最小的 CYCLE  = (              ) ns
+
+--------------------------------------------------------------------------------------
+其他說明事項(Any other information you want to specify:(如設計特點 ...)
+
+使用超快速xxx架構........

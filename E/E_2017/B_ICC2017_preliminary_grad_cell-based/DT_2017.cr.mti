@@ -1,8 +1,0 @@
-D:/verylag/Verylag/E/E_2017/B_ICC2017_preliminary_grad_cell-based/DT.v {1 {vlog -work work -stats=none D:/verylag/Verylag/E/E_2017/B_ICC2017_preliminary_grad_cell-based/DT.v
-Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
--- Compiling module DT
-
-Top level modules:
-	DT
-
-} {} {}}

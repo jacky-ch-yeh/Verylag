@@ -1,0 +1,44 @@
+m255
+K3
+13
+cModel Technology
+Z0 dD:\110_2\dic\HW\HW3\file
+vISE
+Z1 I^7Bzdh^Ojan5gM41WV5LN1
+Z2 VOT]>XhVNDo6k5G2UCd4jB3
+Z3 dD:\verylag\Verylag\B\final\B_ICC2015_all_cell-based_final\icc2015cb
+Z4 w1650437979
+Z5 8D:/verylag/Verylag/B/final/B_ICC2015_all_cell-based_final/icc2015cb/ISE.v
+Z6 FD:/verylag/Verylag/B/final/B_ICC2015_all_cell-based_final/icc2015cb/ISE.v
+L0 2
+Z7 OV;L;10.1d;51
+r1
+31
+Z8 !s90 -reportprogress|300|-work|work|D:/verylag/Verylag/B/final/B_ICC2015_all_cell-based_final/icc2015cb/ISE.v|
+Z9 o-work work -O0
+Z10 n@i@s@e
+Z11 !s100 bH<O=ZgFmjmdXK;0Tn3j50
+Z12 !s108 1650438023.419000
+Z13 !s107 D:/verylag/Verylag/B/final/B_ICC2015_all_cell-based_final/icc2015cb/ISE.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vtest
+!i10b 1
+!s100 cYUn]Egm8TXQ5g:ZCeP__0
+I>4TJobRJf6[HN1BzZ;=9I0
+Z14 VUzfMR@obHzH@>[zI1i9Q]2
+R3
+w1428487666
+8D:/verylag/Verylag/B/final/B_ICC2015_all_cell-based_final/icc2015cb/testfixture3.v
+FD:/verylag/Verylag/B/final/B_ICC2015_all_cell-based_final/icc2015cb/testfixture3.v
+L0 9
+R7
+r1
+!s85 0
+31
+!s108 1650438023.789000
+!s107 D:/verylag/Verylag/B/final/B_ICC2015_all_cell-based_final/icc2015cb/testfixture3.v|
+!s90 -reportprogress|300|-work|work|D:/verylag/Verylag/B/final/B_ICC2015_all_cell-based_final/icc2015cb/testfixture3.v|
+!s101 -O0
+R9
